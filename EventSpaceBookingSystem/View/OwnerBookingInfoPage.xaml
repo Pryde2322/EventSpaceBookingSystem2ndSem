@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.OwnerBookingInfoPage"
+             xmlns:controls="clr-namespace:EventSpaceBookingSystem.Controls"
+             x:Name="OwnerPage"
+             BackgroundColor="#E7E7E7">
+
+
+    <Grid ColumnDefinitions="50,*">
+        <controls:OwnerPageSidebarView Grid.Column="0" SelectedPage="Edit"/>
+        <StackLayout Orientation="Vertical" Grid.Column="1">
+            <Grid ColumnDefinitions="*,*">
+                <HorizontalStackLayout Grid.Column="0" 
+                       Padding="15,10,0,0">
+                    <Label Text="RAMENCO"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           TextColor="Black"/>
+                    <Label Text="  Space Booking"
+                           FontSize="Medium"
+                           TextColor="Black"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1"  
+               Padding="0,5,25,0"
+               HorizontalOptions="End">
+                    <ImageButton Source="bell.png" 
+                 Clicked="OnNotificationIconClicked"
+                 BackgroundColor="Transparent"/>
+                    <ImageButton Source="user24px.png"
+                 Clicked="OnProfileIconClicked"
+                 BackgroundColor="Transparent"/>
+                </HorizontalStackLayout>
+            </Grid>
+            <Line X2="1920" Stroke="Black"/>
+            <CollectionView ItemsSource="{Binding PendingBookings}">
+                <CollectionView.EmptyView>
+                    <Label Text="No pending bookings." HorizontalOptions="Center" VerticalOptions="Center"/>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,8" Padding="12" BackgroundColor="Gray" StrokeShape="RoundRectangle 8">
+                            <StackLayout>
+                                <Label Text="{Binding Booking.Headline}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding Booking.BookingDate, StringFormat='Date: {0:MMMM dd, yyyy}'}"/>
+                                <Label Text="{Binding Booking.GuestCount, StringFormat='Guests: {0}'}"/>
+                                <Label Text="{Binding Username, StringFormat='Booked by: {0}'}"/>
+                                <Label Text="{Binding Email, StringFormat='Email: {0}'}"/>
+                                <Label Text="{Binding Booking.Status, StringFormat='Status: {0}'}" TextColor="Orange"/>
+
+                                <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,8,0,0">
+                                <Button Text="Accept"
+                                Command="{Binding Source={x:Reference OwnerPage}, Path=BindingContext.AcceptCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="Green" TextColor="White"/>
+                                <Button Text="Reject"
+                                Command="{Binding Source={x:Reference OwnerPage}, Path=BindingContext.RejectCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="Red" TextColor="White"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Grid>
+</ContentPage>

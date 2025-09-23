@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:converters="clr-namespace:EventSpaceBookingSystem.Converters"
+    x:Class="EventSpaceBookingSystem.View.AddEventSpaceBox"
+    x:Name="AddEventPopup"
+    BackgroundColor="#80000000"
+    CloseWhenBackgroundIsClicked="True">
+
+    <mopups:PopupPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToDropdownTextConverter x:Key="BoolToDropdownTextConverter" />
+        </ResourceDictionary>
+    </mopups:PopupPage.Resources>
+
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Frame BackgroundColor="White"
+               Padding="20"
+               CornerRadius="15"
+               WidthRequest="500"
+               MaximumHeightRequest="500"
+               HasShadow="True"
+               VerticalOptions="Center">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="15">
+
+                    <Label Text="Add your Event Space!" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" />
+
+                    <Label Text="Event Space:" />
+                    <Entry Placeholder="Enter Owned Space Here" Text="{Binding Title}" />
+
+                    <Label Text="Description:" />
+                    <Editor HeightRequest="70" Placeholder="Enter Description Here" Text="{Binding Description1}" />
+
+                    <Label Text="Location:" />
+                    <Entry Placeholder="Enter Event Space Location" Text="{Binding Location}" />
+
+                    <!-- Category Dropdown -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Category:" TextColor="Black" />
+                        <Label Text="(Select up to 3)" FontSize="12" TextColor="Gray" />
+                        <Button Text="{Binding IsCategoryDropdownOpen, Converter={StaticResource BoolToDropdownTextConverter}}"
+                                Command="{Binding ToggleCategoryDropdownCommand}"
+                                BackgroundColor="#E0E0E0"
+                                TextColor="Black"
+                                CornerRadius="5"
+                                Padding="10,5" />
+                        <StackLayout IsVisible="{Binding IsCategoryDropdownOpen}" Padding="10,5" BackgroundColor="#F9F9F9" Spacing="5">
+                            <CollectionView ItemsSource="{Binding AvailableCategories}" SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <HorizontalStackLayout>
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </VerticalStackLayout>
+
+                    <Label Text="Capacity:" />
+                    <Entry Placeholder="Enter Capacity" Keyboard="Numeric" Text="{Binding Capacity}" />
+
+                    <Label Text="Price Rate/s" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Daily Rate" />
+                        <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding DailyRate}" />
+                        <Label Text="Extension Rate" />
+                        <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding ExtensionRate}" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Table Rate" />
+                        <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding TableRate}" />
+                    </HorizontalStackLayout>
+
+                    <Button Text="Upload Image(s)" Command="{Binding UploadImageCommand}" BackgroundColor="#E0E0E0" TextColor="Black" CornerRadius="10" />
+
+                    <Label Text="Uploaded Images:" FontAttributes="Bold" FontSize="14" />
+                    <ActivityIndicator IsRunning="{Binding IsUploading}" IsVisible="{Binding IsUploading}" />
+
+                    <CollectionView ItemsSource="{Binding UploadedImages}" ItemsLayout="HorizontalList" HeightRequest="130">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="100" HeightRequest="100">
+                                    <Border Stroke="LightGray" StrokeThickness="1">
+                                        <Image Source="{Binding}" WidthRequest="90" HeightRequest="90" Aspect="AspectFill" />
+                                    </Border>
+                                    <Border HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="White" Stroke="Red" StrokeThickness="1" Padding="2">
+                                        <Label Text="❌" FontSize="12">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.RemoveImageCommand, Source={x:Reference AddEventPopup}}" CommandParameter="{Binding}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="Add Space" Command="{Binding SubmitCommand}" WidthRequest="150" BackgroundColor="#4CAF50" TextColor="White" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Frame>
+    </Grid>
+</mopups:PopupPage>

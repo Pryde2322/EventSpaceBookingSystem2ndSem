@@ -1,0 +1,25 @@
+[
+  {
+    "Title": "Solea Mactan Resort",
+    "Rating": 0,
+    "ReviewCount": 0,
+    "Capacity": "200",
+    "FormattedPrice": "\u20B15432 / day",
+    "DailyRate": "5432",
+    "ExtensionRate": "256",
+    "TableRate": "235",
+    "Location": "Wahing Street, Barangay Alegria, Cordova, Cebu, 6017 Mactan, PhilippinesAfter booking, all of the property\u2019s details, including telephone and address, are provided in your booking confirmation and your account.",
+    "Category": "Beach, Resort",
+    "Description1": "Set in Mactan, 10 km from Cebu City, Solea Mactan Resort boasts a large salt-water outdoor infinity pool with water slides. It also features a fitness centre, games room, a restaurant and private beach area. Free WiFi access is available throughout the property.\r\rModernly furnished, air-conditioned rooms come with a flat-screen TV, minibar, a safety deposit box and complimentary bottled drinking water. Some units offer views of the pool or garden. The private bathroom includes a bathtub, bathrobes, slippers and free toiletries.\r\rOperating a 24-hour front desk, the friendly staff can assist guests with laundry/dry cleaning services, luggage storage and airport shuttle arrangements. Guests may also rent a bicycle or car to explore the vicinity.\r\rYou can play table tennis, darts and board games at the resort. The nearest airport is Mactan Cebu International Airport, 7 km from Solea Mactan Resort.",
+    "Description2": null,
+    "UploadedImage": null,
+    "ImageUrls": [
+      "Event Space Images/3/img_1.png",
+      "Event Space Images/3/img_2.png",
+      "Event Space Images/3/img_3.png",
+      "Event Space Images/3/img_4.png",
+      "Event Space Images/3/img_5.png"
+    ],
+    "ImageUrl": "Event Space Images/3/img_1.png"
+  }
+]

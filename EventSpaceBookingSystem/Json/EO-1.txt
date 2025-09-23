@@ -1,0 +1,82 @@
+[
+  {
+    "Title": "Shangri-La The Chenrezig Hotel",
+    "Rating": 0,
+    "ReviewCount": 0,
+    "Capacity": "100",
+    "FormattedPrice": "\u20B154 / day",
+    "DailyRate": "54",
+    "ExtensionRate": "67",
+    "TableRate": "23",
+    "Location": "No.23, Chigulang, Cangfang Community, Jiantang Town, Shangri-La, Yunnan, China",
+    "Category": "Beach, Hotel, Resort",
+    "Description1": "The Shangri-La The Chenrezig Hotel is one of the newest hotels in Shangri-La, having opened in 2023.\rWith Shangri-la Railway Station just 6km away and Shangri La Airport only 6km away, transportation is very convenient. The nearby area boasts an abundance of attractions including Baita Temple, Shangri-La Jiantang Tourist Town and Shambhala Kalachakra Mandala Culture Center.\rAt the end of a busy day, travelers can unwind and relax in the hotel or go out and enjoy the city. For those driving themselves, parking is provided on site.\rAccording to our guests, this hotel provides a very high level of service. This hotel is a popular accommodation for guests traveling with families.",
+    "Description2": null,
+    "UploadedImage": null,
+    "ImageUrls": [
+      "Event Space Images/1/img_1.png",
+      "Event Space Images/1/img_10.png",
+      "Event Space Images/1/img_11.png",
+      "Event Space Images/1/img_12.png",
+      "Event Space Images/1/img_13.png",
+      "Event Space Images/1/img_14.png",
+      "Event Space Images/1/img_15.png",
+      "Event Space Images/1/img_16.png",
+      "Event Space Images/1/img_17.png",
+      "Event Space Images/1/img_18.png",
+      "Event Space Images/1/img_19.png",
+      "Event Space Images/1/img_20.png",
+      "Event Space Images/1/img_21.png",
+      "Event Space Images/1/img_22.png",
+      "Event Space Images/1/img_23.png",
+      "Event Space Images/1/img_24.png",
+      "Event Space Images/1/img_25.png",
+      "Event Space Images/1/img_26.png"
+    ],
+    "ImageUrl": "Event Space Images/1/img_1.png"
+  },
+  {
+    "Title": "bai Hotel Cebu",
+    "Rating": 0,
+    "ReviewCount": 0,
+    "Capacity": "347",
+    "FormattedPrice": "\u20B13245 / day",
+    "DailyRate": "3245",
+    "ExtensionRate": "456",
+    "TableRate": "234",
+    "Location": "Quano Avenue cor. Seno Boulevard, 6014 Mandaue City, Cebu, Central Visayas, Philippines",
+    "Category": "Hotel, Conference Hall, Banquet Hall",
+    "Description1": "With a stay at bai Hotel Cebu in Mandaue, you\u0027ll be in the business district, within a 5-minute drive of SM City Cebu and Mandaue City Hall. This hotel is 5.6 mi (9 km) from SM Seaside City Cebu and 3.4 mi (5.4 km) from Colon Street.\rTake advantage of recreation opportunities including an outdoor pool and a fitness center. Additional features at this hotel include complimentary wireless Internet access, concierge services, and gift shops/newsstands.\rGrab a bite at CAF\u00C9 BAI, one of the hotel\u0027s 8 restaurants, or stay in and take advantage of the 24-hour room service. Snacks are also available at the coffee shop/cafe. Unwind at the end of the day with a drink at the bar/lounge or the poolside bar. Buffet breakfasts are available daily from 6 AM to 10 AM for a fee.\rFeatured amenities include a business center, dry cleaning/laundry services, and a 24-hour front desk. A roundtrip airport shuttle is provided for a surcharge (available 24 hours), and free self parking is available onsite.\rMake yourself at home in one of the 668 air-conditioned rooms featuring Smart televisions. Complimentary wired and wireless Internet access keeps you connected, and cable programming provides entertainment. Private bathrooms with showers feature rainfall showerheads and complimentary toiletries. Conveniences include phones, as well as laptop-compatible safes and desks.",
+    "Description2": null,
+    "UploadedImage": null,
+    "ImageUrls": [
+      "Event Space Images/1/img_2.png",
+      "Event Space Images/1/img_3.png",
+      "Event Space Images/1/img_4.png",
+      "Event Space Images/1/img_5.png"
+    ],
+    "ImageUrl": "Event Space Images/1/img_2.png"
+  },
+  {
+    "Title": "Toyoko Inn Cebu",
+    "Rating": 0,
+    "ReviewCount": 0,
+    "Capacity": "432",
+    "FormattedPrice": "\u20B13456 / day",
+    "DailyRate": "3456",
+    "ExtensionRate": "257",
+    "TableRate": "263",
+    "Location": "165 A. S. Fortuna St, 6014 Mandaue City, Cebu, Central Visayas, Philippines",
+    "Category": "Hotel, Rooftop, Lounge",
+    "Description1": "With a stay at Toyoko Inn Cebu in Mandaue (Bakilid), you\u0027ll be steps from SM City JMall and a 2-minute drive from City Time Square. This hotel is 2.3 mi (3.7 km) from SM City Cebu and 3.2 mi (5.1 km) from Waterfront Cebu City Casino.\rPamper yourself with onsite massages or make use of the other amenities, which include complimentary wireless Internet access.\rQuench your thirst with your favorite drink at the bar/lounge. A complimentary buffet breakfast is served daily from 6:30 AM to 9:30 AM.\rFeatured amenities include complimentary newspapers in the lobby, a 24-hour front desk, and laundry facilities. This hotel has 2 meeting rooms available for events. A roundtrip airport shuttle is complimentary (available on request).\rMake yourself at home in one of the 582 air-conditioned rooms featuring flat-screen televisions. Complimentary wireless Internet access keeps you connected, and cable programming is available for your entertainment. Private bathrooms with shower/tub combinations feature deep soaking bathtubs and rainfall showerheads. Conveniences include phones, as well as safes and complimentary bottled water.",
+    "Description2": null,
+    "UploadedImage": null,
+    "ImageUrls": [
+      "Event Space Images/1/img_6.png",
+      "Event Space Images/1/img_7.png",
+      "Event Space Images/1/img_8.png",
+      "Event Space Images/1/img_9.png"
+    ],
+    "ImageUrl": "Event Space Images/1/img_6.png"
+  }
+]

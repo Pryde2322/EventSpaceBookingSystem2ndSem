@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.PaymentPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- HEADER: Greeting + Notification + Settings -->
+            <Grid Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="White">
+                <Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
+                    <ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
+                    <ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- NAVIGATION BAR -->
+            <Grid Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White">
+                <Grid Grid.Column="0">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHomeClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="HOME" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExploreClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Venues" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <StackLayout Padding="0,10" BackgroundColor="#D3D3D3">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCartClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Cart" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+                <!-- OWNER -->
+                <Grid Grid.Column="3"
+      IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Be an Event Space Owner!" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+            </Grid>
+
+            <!-- Header -->
+            <Label Text="Payment Receipt" FontSize="24" FontAttributes="Bold" />
+
+            <!-- Booking Summary -->
+            <Frame Padding="15" BackgroundColor="#F0F0F0" CornerRadius="10">
+				<VerticalStackLayout>
+					<!-- User Info -->
+					<Label Text="{Binding Username, StringFormat='Booked by: {0}'}" FontSize="14" FontAttributes="Bold" />
+					<Label Text="{Binding Email, StringFormat='Email: {0}'}" FontSize="14" TextColor="Gray" />
+
+					<!-- Booking Summary -->
+					<Label Text="{Binding BookingSummary}" FontSize="14" LineBreakMode="WordWrap" />
+				</VerticalStackLayout>
+
+			</Frame>
+
+            <!-- Payment Method Picker -->
+			<HorizontalStackLayout>
+				<Label Text="Select Payment Method:" FontAttributes="Bold" Padding="20"/>
+                <Picker ItemsSource="{Binding PaymentMethods}" SelectedItem="{Binding SelectedPaymentMethod}" MinimumWidthRequest="300"/>
+			</HorizontalStackLayout>
+
+
+			<Grid Padding="20" RowDefinitions="Auto" ColumnDefinitions="*,Auto">
+
+				<!-- Payment Form Section -->
+				<StackLayout Grid.Column="0" Spacing="10">
+
+					<!-- E-Wallet Section -->
+					<StackLayout IsVisible="{Binding IsEWallet}" Spacing="10" Padding="0,0,250,0">
+						<Label Text="E-Wallet Provider" />
+						<Picker Title="Select Provider" ItemsSource="{Binding WalletProviders}" SelectedItem="{Binding WalletProvider}" />
+						<Label Text="Wallet ID / Number" />
+						<Entry Placeholder="09xxxxxxxxx" Text="{Binding WalletId}" Keyboard="Telephone"/>
+					</StackLayout>
+
+					<!-- Credit/Debit Section -->
+					<StackLayout IsVisible="{Binding IsCard}" Spacing="10" Padding="0,0,250,0">
+						<Label Text="Card Number" />
+						<Entry Placeholder="XXXX-XXXX-XXXX-XXXX" Text="{Binding CardNumber}" Keyboard="Numeric"/>
+						<Label Text="Expiration Date (MM/YY)" />
+						<Entry Placeholder="MM/YY" Text="{Binding Expiry}" />
+						<Label Text="CVV" />
+						<Entry Placeholder="123" Text="{Binding CVV}" Keyboard="Numeric" />
+					</StackLayout>
+
+				</StackLayout>
+
+				<!-- Buttons Section -->
+				<HorizontalStackLayout Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="End" Spacing="10">
+					<Button Text="Cancel" BackgroundColor="Pink" TextColor="Black" WidthRequest="100" Command="{Binding CancelPaymentCommand}" />
+					<Button Text="Pay Now" BackgroundColor="Green" TextColor="White" WidthRequest="100" Command="{Binding SubmitPaymentCommand}" />
+				</HorizontalStackLayout>
+
+			</Grid>
+
+		</VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

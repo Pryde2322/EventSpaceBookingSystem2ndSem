@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="EventSpaceBookingSystem.View.OwnerUpdateSpacePage"
+             x:Name="ThisPage"
+             BackgroundColor="#E7E7E7">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <!-- Header section -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Update Event Space" FontAttributes="Bold" FontSize="24" TextColor="Black" Grid.Column="0" VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Placeholder and Space Info -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Stroke="LightGray" StrokeThickness="1" BackgroundColor="LightGray" WidthRequest="100" HeightRequest="100">
+                    <Image Source="{Binding PrimaryImage}" Aspect="AspectFill"/>
+                </Border>
+                <StackLayout Grid.Column="1" Spacing="5">
+                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
+                    <Label Text="{Binding AddedDate, StringFormat='Added {0} Year Ago'}" FontSize="14" TextColor="Gray"/>
+                    <Label Text="{Binding Capacity, StringFormat='Space Capacity: {0} pax'}" FontSize="14"/>
+                    <Label Text="{Binding Category, StringFormat='Category: {0}'}" FontSize="14"/>
+                    <Label Text="{Binding Description1}" FontSize="12" TextColor="Gray" MaxLines="3" LineBreakMode="TailTruncation"/>
+                </StackLayout>
+            </Grid>
+
+            <Label Text="Space Details" FontAttributes="Bold" FontSize="18" TextColor="Black" Margin="0,0,0,15"/>
+
+            <Grid ColumnSpacing="20" RowSpacing="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Left Column -->
+                <StackLayout Grid.Column="0" Grid.Row="0">
+                    <Label Text="Space Name:" TextColor="Black" FontSize="14"/>
+                    <Grid>
+                        <Entry x:Name="txtTitle" Text="{Binding Title}" Placeholder="Lorem ipsum" BackgroundColor="White"/>
+                        <Button Text="✏️" HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Padding="0" BackgroundColor="Transparent"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Column="0" Grid.Row="1">
+                    <Label Text="Location:" TextColor="Black" FontSize="14"/>
+                    <Grid>
+                        <Entry x:Name="txtLocation" Text="{Binding Location}" Placeholder="Tampa, Florida" BackgroundColor="White"/>
+                        <HorizontalStackLayout HorizontalOptions="End" Spacing="5">
+                            <Button Text="📍" WidthRequest="30" HeightRequest="30" Padding="0" BackgroundColor="Transparent"/>
+                            <Button Text="✏️" WidthRequest="30" HeightRequest="30" Padding="0" BackgroundColor="Transparent"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Column="0" Grid.Row="2">
+                    <Label Text="Category:" TextColor="Black" FontSize="14"/>
+                    <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White">
+                        <Grid>
+                            <Label Text="{Binding SelectedCategoryDisplayText}" TextColor="Black" Padding="10,5"/>
+                            <Button Text="✏️" Command="{Binding ToggleCategoryDropdownCommand}" HorizontalOptions="End" BackgroundColor="Transparent" WidthRequest="30"/>
+                        </Grid>
+                    </Border>
+                    <CollectionView ItemsSource="{Binding AvailableCategories}" IsVisible="{Binding IsCategoryDropdownOpen}" SelectionMode="None" Margin="0,5,0,0" HeightRequest="150">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <HorizontalStackLayout Padding="10,5">
+                                    <CheckBox IsChecked="{Binding IsSelected}" />
+                                    <Label Text="{Binding Name}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+
+                <StackLayout Grid.Column="0" Grid.Row="3">
+                    <Label Text="Capacity" TextColor="Black" FontSize="14"/>
+                    <Grid>
+                        <Entry x:Name="txtCapacity" Text="{Binding Capacity}" Placeholder="80 pax" Keyboard="Numeric" BackgroundColor="White"/>
+                        <Button Text="✏️" HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Padding="0" BackgroundColor="Transparent"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Column="0" Grid.Row="4">
+                    <Label Text="Price" TextColor="Black" FontSize="14"/>
+                    <Grid>
+                        <Entry x:Name="txtDailyRate" Text="{Binding DailyRate}" Placeholder="Php 400" Keyboard="Numeric" BackgroundColor="White"/>
+                        <Button Text="✏️" HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Padding="0" BackgroundColor="Transparent"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Column="0" Grid.Row="5">
+                    <Label Text="Extension Rate" TextColor="Black" FontSize="14"/>
+                    <Entry x:Name="txtExtensionRate" Text="{Binding ExtensionRate}" Placeholder="Php per hour" Keyboard="Numeric" BackgroundColor="White"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="0" Grid.Row="6">
+                    <Label Text="Table Rate" TextColor="Black" FontSize="14"/>
+                    <Entry x:Name="txtTableRate" Text="{Binding TableRate}" Placeholder="Php per table" Keyboard="Numeric" BackgroundColor="White"/>
+                </StackLayout>
+
+                <!-- Right Column -->
+                <StackLayout Grid.Column="1" Grid.Row="0" Grid.RowSpan="4">
+                    <Label Text="Description:" TextColor="Black" FontSize="14"/>
+                    <Grid>
+                        <Editor x:Name="txtDescription" Text="{Binding Description1}" Placeholder="Text Here..." HeightRequest="150" BackgroundColor="White"/>
+                        <Button Text="✏️" HorizontalOptions="End" VerticalOptions="Start" WidthRequest="30" HeightRequest="30" Padding="0" Margin="0,5,5,0" BackgroundColor="Transparent"/>
+                    </Grid>
+                </StackLayout>
+
+                <!-- Upload Images -->
+                <StackLayout Grid.Column="1" Grid.Row="4" Grid.RowSpan="3">
+                    <Button Text="Upload Image(s)" Command="{Binding UploadImageCommand}" BackgroundColor="#E0E0E0" TextColor="Black" CornerRadius="10" Padding="10,5" Margin="0,10,0,10"/>
+                    <Label Text="Uploaded Images:" FontAttributes="Bold" FontSize="14"/>
+                    <ActivityIndicator IsRunning="{Binding IsUploading}" IsVisible="{Binding IsUploading}" Color="Black" HorizontalOptions="Center" Margin="0,5,0,5"/>
+                    <CollectionView ItemsSource="{Binding DisplayImages}" ItemsLayout="HorizontalList" HeightRequest="150" Margin="0,5,0,10">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="110" HeightRequest="110" Margin="5">
+                                    <Border Stroke="LightGray" StrokeThickness="1">
+                                        <Image Source="{Binding Source}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                                    </Border>
+                                    <Border HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="White" Stroke="Red" StrokeThickness="1" Padding="2" Margin="0,0,5,0">
+                                        <Label Text="❌" FontSize="12">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.RemoveImageCommand, Source={x:Reference Name=ThisPage}}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Grid>
+
+            <!-- Action Buttons -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="0,30,0,0">
+                <Button x:Name="btnUpdate" Text="Update" Clicked="OnUpdateBtnClicked" BackgroundColor="#4DB5FF" TextColor="White" WidthRequest="120"/>
+                <Button x:Name="btnCancel" Text="Cancel" Clicked="OnCancelBtnClicked" BackgroundColor="#CCCCCC" TextColor="Black" WidthRequest="120"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

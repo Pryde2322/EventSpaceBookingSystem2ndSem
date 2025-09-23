@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.VenuePage"
+			 xmlns:converters="clr-namespace:EventSpaceBookingSystem.Converters"
+             BackgroundColor="white">
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- HEADER: Greeting + Notification + Settings -->
+            <Grid Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="White">
+                <Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
+                    <ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
+                    <ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- NAVIGATION BAR -->
+            <Grid Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White">
+
+                <!-- HOME -->
+                <Grid Grid.Column="0">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHomeClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="HOME" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!-- VENUES -->
+                <Grid Grid.Column="1">
+                    <StackLayout Padding="0,10" BackgroundColor="#D3D3D3">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExploreClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Venues" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!-- CART -->
+                <Grid Grid.Column="2">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCartClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Cart" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!-- OWNER -->
+                <Grid Grid.Column="3"
+      IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Be an Event Space Owner!" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+            </Grid>
+
+			<!-- Background Image -->
+			<Grid>
+				<Image Source="header_background.png" Aspect="AspectFill" HeightRequest="200" />
+				<StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20,20,20,30" Spacing="5">
+					<Label Text="Ramenco Event Space Booking" FontSize="50" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
+					<Label Text="Book Your Space, Make Memories" FontSize="20" HorizontalOptions="Center" TextColor="Black"/>
+				</StackLayout>
+			</Grid>
+
+            <!-- Search Section -->
+            <Grid ColumnDefinitions="3*, 2*, Auto" Margin="0" Padding="20" BackgroundColor="White">
+                <!-- Search Input -->
+                <Grid Grid.Column="0" ColumnDefinitions="Auto, *" Padding="0">
+                    <Image Grid.Column="0" Source="search_icon.png" HeightRequest="20" WidthRequest="20" Margin="5,0,5,0" VerticalOptions="Center"/>
+                    <Entry Grid.Column="1" Placeholder="Find event space you're interested in" Text="{Binding SearchQuery}" MinimumWidthRequest="200" VerticalOptions="Center" BackgroundColor="White" HeightRequest="40"/>
+                </Grid>
+
+                <!-- Location Input -->
+                <Grid Grid.Column="1" ColumnDefinitions="Auto, *" Padding="0" Margin="10,0,0,0">
+                    <Image Grid.Column="0" Source="location_icon.png" HeightRequest="25" WidthRequest="25" Margin="5,0,5,0" VerticalOptions="Center"/>
+                    <Entry Grid.Column="1" Text="{Binding LocationQuery}" Placeholder="Enter Location" VerticalOptions="Center" BackgroundColor="White" HeightRequest="40"/>
+                </Grid>
+
+                
+            </Grid>
+
+			<!-- Filter Section Centered -->
+			<Grid Padding="20,10" BackgroundColor="White" HorizontalOptions="Center">
+				<HorizontalStackLayout Padding="0,0,0,10" Spacing="10" BackgroundColor="White" HorizontalOptions="Center">
+					<HorizontalStackLayout Padding="0,0,50,10" Spacing="10" BackgroundColor="White" HorizontalOptions="Center">
+						<Picker Title="Select Category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" WidthRequest="150"/>
+					</HorizontalStackLayout>
+					<HorizontalStackLayout Padding="0,0,50,10" Spacing="10" BackgroundColor="White" HorizontalOptions="Center">
+						<Picker Title="No. of Guests" ItemsSource="{Binding GuestOptions}" SelectedItem="{Binding SelectedGuest}" WidthRequest="150"/>
+					</HorizontalStackLayout>
+					<HorizontalStackLayout Padding="0,0,50,10" Spacing="10" BackgroundColor="White" HorizontalOptions="Center">
+						<Picker Title="Select Rating" ItemsSource="{Binding RatingOptions}" SelectedItem="{Binding SelectedRating}" WidthRequest="150"/>
+					</HorizontalStackLayout>
+					<HorizontalStackLayout Padding="0,25,50,10" Spacing="10" BackgroundColor="White" HorizontalOptions="Center">
+						<Button Text="Apply Filter" WidthRequest="120" HeightRequest="20" BackgroundColor="#686868" TextColor="White" CornerRadius="20" Command="{Binding ApplyFilterCommand}"/>
+					</HorizontalStackLayout>
+				</HorizontalStackLayout>
+
+			</Grid>
+
+
+
+            <!-- Venues Grid -->
+            <Grid Padding="20,0" BackgroundColor="#F5F5F5">
+                <CollectionView x:Name="venuesCollection" ItemsSource="{Binding Venues}" Margin="0,15">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="5" HorizontalItemSpacing="15" VerticalItemSpacing="15"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="10" Padding="0" WidthRequest="250" HeightRequest="400" CornerRadius="10" HasShadow="True" BackgroundColor="White">
+                                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                                    <Image Grid.Row="0" Source="{Binding UploadedImage}" Aspect="AspectFill" HeightRequest="180"/>
+                                    <Button Grid.Row="0" Text="Explore" Command="{Binding Source={x:Reference venuesCollection}, Path=BindingContext.ExploreCommand}" CommandParameter="{Binding}" BackgroundColor="#4F46E5" TextColor="White" WidthRequest="80" HeightRequest="30" CornerRadius="5" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,10"/>
+                                    <StackLayout Grid.Row="1" Padding="10,5">
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" Margin="0,5"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Row="2" Padding="10,0,10,0">
+                                        <Label Text="{Binding Category}" FontSize="12" TextColor="#4F46E5" LineBreakMode="WordWrap" MaxLines="2"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Row="3" Orientation="Horizontal" Padding="10,0,10,5">
+                                        <Label Text="★" FontSize="14" TextColor="Gold"/>
+                                        <Label Text="{Binding Rating}" FontSize="14" Margin="0,0,10,0"/>
+                                        <Label Text="{Binding ReviewCount, StringFormat='({0} Reviews)'}" FontSize="14" TextColor="#666666"/>
+                                    </StackLayout>
+                                    <Grid Grid.Row="4" Padding="10,5,10,10" ColumnDefinitions="*, Auto">
+                                        <Label Grid.Column="0" Text="{Binding Capacity, StringFormat='Upto {0} Guests'}" VerticalOptions="Center" FontSize="14"/>
+                                        <Label Grid.Column="1" Text="{Binding FormattedPrice}" FontAttributes="Bold" FontSize="16" VerticalOptions="Center"/>
+                                    </Grid>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+
+
+            <!-- Pagination -->
+            <Grid HorizontalOptions="Center" Margin="0,15,0,30">
+                <HorizontalStackLayout Spacing="5">
+                    <Button Text="«" WidthRequest="30" HeightRequest="30" CornerRadius="15" Command="{Binding PreviousPageCommand}" BackgroundColor="#F5F5F5" TextColor="#666666" FontSize="12" />
+                    <CollectionView ItemsSource="{Binding PageNumbers}" ItemsLayout="HorizontalList" HorizontalOptions="Center">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Button Text="{Binding .}" WidthRequest="30" HeightRequest="30" CornerRadius="15" Command="{Binding Source={x:Reference venuesCollection}, Path=BindingContext.GoToPageCommand}" CommandParameter="{Binding .}" FontSize="12" TextColor="Black">
+                                    <Button.BackgroundColor>
+                                        <MultiBinding Converter="{StaticResource PageHighlightConverter}">
+                                            <Binding Path="." />
+                                            <Binding Source="{x:Reference venuesCollection}" Path="BindingContext.CurrentPage" />
+                                        </MultiBinding>
+                                    </Button.BackgroundColor>
+                                </Button>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <Button Text="»" WidthRequest="30" HeightRequest="30" CornerRadius="15" Command="{Binding NextPageCommand}" BackgroundColor="#F5F5F5" TextColor="#666666" FontSize="12" />
+                </HorizontalStackLayout>
+            </Grid>
+
+
+
+
+
+
+            <!-- Featured Venue Banner -->
+            <Frame Margin="20,0,20,20" Padding="0" CornerRadius="10" HasShadow="True" BackgroundColor="White">
+                <Grid ColumnDefinitions="Auto, *">
+                    <Frame Grid.Column="0" BackgroundColor="#F5F5F5" WidthRequest="100" HeightRequest="100" CornerRadius="50" Margin="20" Padding="0" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="event_placeholder.png" Aspect="AspectFit"/>
+                    </Frame>
+                    <StackLayout Grid.Column="1" Padding="0,20,20,20" VerticalOptions="Center">
+                        <Label Text="Lorem ipsum dolor sit amet" FontSize="18" FontAttributes="Bold"/>
+                        <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" FontSize="14" TextColor="#666666" MaxLines="2" LineBreakMode="TailTruncation"/>
+                        <Button Text="CTA" BackgroundColor="#686868" TextColor="White" WidthRequest="80" HeightRequest="40" CornerRadius="5" HorizontalOptions="End" Margin="0,10,0,0" Command="{Binding CtaCommand}"/>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

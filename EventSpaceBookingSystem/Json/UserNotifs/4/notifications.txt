@@ -1,0 +1,13 @@
+[
+  {
+    "Title": "Booking Pending",
+<<<<<<< HEAD
+    "Message": "Your booking for \u0027bai Hotel Cebu\u0027 has been in Pending.",
+    "Timestamp": "May 20, 2025 7:25 PM"
+  },
+  {
+    "Title": "Profile Picture Changed",
+    "Message": "You have successfully updated your profile picture.",
+    "Timestamp": "May 20, 2025 7:24 PM"
+  }
+]

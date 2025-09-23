@@ -1,0 +1,42 @@
+[
+  {
+    "Title": "Booking Status Updated",
+    "Message": "Your booking \u0027Shangri-La The Chenrezig Hotel\u0027 is now marked as \u0027Payment Successful\u0027.",
+    "Timestamp": "May 21, 2025 8:44 AM"
+  },
+  {
+    "Title": "Booking Accepted",
+    "Message": "Your booking for \u0027Shangri-La The Chenrezig Hotel\u0027 has been accepted.",
+    "Timestamp": "May 21, 2025 8:42 AM"
+  },
+  {
+    "Title": "Booking Status Updated",
+    "Message": "Your booking \u0027Shangri-La The Chenrezig Hotel\u0027 is now marked as \u0027Confirmed\u0027.",
+    "Timestamp": "May 21, 2025 8:42 AM"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Shangri-La The Chenrezig Hotel\u0027 has been in Pending.",
+    "Timestamp": "May 21, 2025 8:41 AM"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Jpark Island Resort \u0026 Waterpark Cebu\u0027 has been in Pending.",
+    "Timestamp": "May 20, 2025 10:17 PM"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Shangri-La The Chenrezig Hotel\u0027 has been in Pending.",
+    "Timestamp": "May 19, 2025 9:38 PM"
+  },
+  {
+    "Title": "Booking Cancelled",
+    "Message": "You have cancelled your booking for \u0027Shangri-La The Chenrezig Hotel\u0027.",
+    "Timestamp": "May 19, 2025 9:37 PM"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Shangri-La The Chenrezig Hotel\u0027 has been in Pending.",
+    "Timestamp": "May 19, 2025 9:37 PM"
+  }
+]

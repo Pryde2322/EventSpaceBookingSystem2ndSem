@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:EventSpaceBookingSystem.ViewModel"
+             x:Class="EventSpaceBookingSystem.View.EventSpaceOwnerJoinPage"
+             x:Name="OwnerJoinPage"
+             BackgroundColor="LightGray">
+
+
+    <ScrollView>
+        <VerticalStackLayout >
+            <!-- HEADER: Greeting + Notification + Settings -->
+            <Grid Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="white">
+                <Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
+                    <ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
+                    <ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+
+
+
+            <!-- NAVIGATION BAR -->
+            <Grid Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White">
+
+                <!-- HOME -->
+                <Grid Grid.Column="0">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHomeClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="HOME" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!-- VENUES -->
+                <Grid Grid.Column="1">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnExploreClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Venues" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!-- CART -->
+                <Grid Grid.Column="2">
+                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCartClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Cart" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <!-- OWNER -->
+                <Grid Grid.Column="3"
+      IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
+                    <StackLayout Padding="0,10" BackgroundColor="#D3D3D3">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
+                        </StackLayout.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
+                            <Label Text="Be an Event Space Owner!" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Grid>
+
+
+
+            </Grid>
+
+            <Border  Padding="20" WidthRequest="1200" BackgroundColor="white" Stroke="Transparent" StrokeShape="RoundRectangle 15" Margin="0,20,0,0">
+                <Grid ColumnDefinitions="600,10,550">
+                    <StackLayout Orientation="Vertical" Grid.Column="0" Padding="0,30,0,0" HorizontalOptions="Center" WidthRequest="450">
+                        <Label Text="JOIN NOW!" FontSize="40" FontAttributes="Bold"/>
+                        <Label Text="Register as Event Space Owner"/>
+                        <VerticalStackLayout Spacing="5">
+                            <HorizontalStackLayout>
+                                <Label Text="*" TextColor="#FF5F1B"/>
+                                <Label Text="Email"/>
+                            </HorizontalStackLayout>
+                            <Entry Text="{Binding FormattedEmail}" IsReadOnly="True" BackgroundColor="#F0F0F0" TextColor="Black"/>
+
+                            <HorizontalStackLayout>
+                                <Label Text="*" TextColor="#FF5F1B"/>
+                                <Label Text="Username"/>
+                            </HorizontalStackLayout>
+                            <Entry Placeholder="Enter your Username Here" Text="{Binding UpdateUsername}"/>
+                            <StackLayout HorizontalOptions="Center" Spacing="5">
+                            <Label Text="Password" TextColor="Black"/>
+                                <HorizontalStackLayout>
+                                    <Entry Placeholder="Enter your password here"
+           Text="{Binding Password}"
+           IsPassword="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolConverter}}"
+           BackgroundColor="Transparent"
+           TextColor="Black"
+           WidthRequest="400"
+           HeightRequest="40" />
+                                    <Button Text="Show" FontSize="12" Clicked="OnShowPasswordClicked" BackgroundColor="Transparent" TextColor="Gray"/>
+                                </HorizontalStackLayout>
+
+                            </StackLayout>
+
+                    <StackLayout HorizontalOptions="Center" Spacing="5">
+                        <Label Text="Confirm Password" TextColor="Black"/>
+                                <HorizontalStackLayout>
+                                    <Entry Placeholder="Enter your password here"
+           Text="{Binding ConfirmPassword}"
+           IsPassword="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolConverter}}"
+           BackgroundColor="Transparent"
+           TextColor="Black"
+           WidthRequest="400"
+           HeightRequest="40" />
+                                    <Button Text="Show" FontSize="12" Clicked="OnShowPasswordClicked" BackgroundColor="Transparent" TextColor="Gray"/>
+                                </HorizontalStackLayout>
+
+                            </StackLayout>
+        </VerticalStackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,15,0,0">
+                            <CheckBox IsChecked="{Binding IsTermsAccepted}"/>
+                            <Label Text="I agree with Terms &amp; Conditions" VerticalOptions="Center" Margin="5,0,0,0" TextColor="Black"/>
+                        </StackLayout>
+                        <Button Text="JOIN" CornerRadius="20" Command="{Binding JoinCommand}"/>
+                    </StackLayout>
+                    <Line Y1="700" Stroke="Black" Grid.Column="1" WidthRequest="10" Margin="0,50,0,0"/>
+                    <StackLayout Orientation="Vertical" Grid.Column="2" Margin="0,0,0,0" Padding="0,30,0,0" HorizontalOptions="Start" WidthRequest="550" Spacing="5">
+                        <Label Text="Add your Event Space!" FontSize="25" FontAttributes="Bold"/>
+                        <Label Text="Event Space:"/>
+                        <Entry Placeholder="Enter Owned Space Here" Text="{Binding Title}"/>
+                        <Label Text="Description:"/>
+                        <Editor HeightRequest="70" Placeholder="Enter Description Here" Text="{Binding Description1}"/>
+                        <Label Text="Location:"/>
+                        <Entry Placeholder="Enter Event Space Location" Text="{Binding Location}"/>
+
+                        <!-- Category Dropdown -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Category:" TextColor="Black" />
+                            <Label Text="(Select up to 3)" FontSize="12" TextColor="Gray" />
+
+                            <!-- Dropdown toggle -->
+                            <Button Text="{Binding IsCategoryDropdownOpen, Converter={StaticResource BoolToDropdownTextConverter}}"
+            Command="{Binding ToggleCategoryDropdownCommand}"
+            BackgroundColor="#E0E0E0"
+            TextColor="Black"
+            CornerRadius="5"
+            Padding="10,5" />
+
+                            <!-- Dropdown content -->
+                            <StackLayout IsVisible="{Binding IsCategoryDropdownOpen}" Padding="10,5" BackgroundColor="#F9F9F9" Spacing="5">
+                                <CollectionView ItemsSource="{Binding AvailableCategories}" SelectionMode="None">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <HorizontalStackLayout>
+                                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                                <Label Text="{Binding Name}" VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </VerticalStackLayout>
+
+
+
+
+
+                        <Label Text="Capacity:"/>
+                        <Entry Placeholder="Enter your Event Space's Person Capacity" Keyboard="Numeric" Text="{Binding Capacity}"/>
+                        <Label Text="Price Rate/s"/>
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Daily Rate"/>
+                            <Entry HeightRequest="20" WidthRequest="100" Keyboard="Numeric" Text="{Binding DailyRate}"/>
+                            <Label Text="Extension Rate"/>
+                            <Entry HeightRequest="20" WidthRequest="100" Keyboard="Numeric" Text="{Binding ExtensionRate}"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="Table Rate"/>
+                            <Entry HeightRequest="20" WidthRequest="100" Keyboard="Numeric" Text="{Binding TableRate}"/>
+                        </HorizontalStackLayout>
+                        
+                            <Button Text="Upload Image(s)" Command="{Binding UploadImageCommand}" BackgroundColor="#E0E0E0" TextColor="Black" CornerRadius="10" Padding="10,5" Margin="0,20,0,10"/>
+
+                            <Label Text="Uploaded Images:" FontAttributes="Bold" FontSize="14" />
+                        <ActivityIndicator IsRunning="{Binding IsUploading}" IsVisible="{Binding IsUploading}" Color="Black" HorizontalOptions="Center" Margin="0,0,0,10"/>
+
+                        <CollectionView ItemsSource="{Binding UploadedImages}" ItemsLayout="HorizontalList" HeightRequest="150" Margin="0,10,0,30">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid WidthRequest="110" HeightRequest="110" Margin="5">
+                                        
+
+                                        <!-- Main image with border -->
+                                        <Border Stroke="LightGray" StrokeThickness="1" Margin="0,10,0,0">
+                                            <Image Source="{Binding}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                                        </Border>
+                                        <!-- ❌ Remove button in top-right corner -->
+                                        <Border HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="White" Stroke="Red" StrokeThickness="1"  Padding="2" Margin="0,0,5,0">
+                                            <Label Text="❌" FontSize="12">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.RemoveImageCommand, Source={x:Reference OwnerJoinPage}}" CommandParameter="{Binding}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+                    </StackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Optional: Add some footer or spacing below the form -->
+            <Label Text=" " HorizontalOptions="Center" TextColor="Gray" FontSize="12"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

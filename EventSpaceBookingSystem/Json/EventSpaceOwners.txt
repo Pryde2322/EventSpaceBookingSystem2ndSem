@@ -1,0 +1,32 @@
+[
+  {
+    "Email": "lawcosep.eventspaceowner@gmail.com",
+    "Username": "OwnerLoin",
+    "Password": "123456789",
+    "ConfirmPassword": "123456789",
+    "Status": "event space owner",
+    "IsTermsAccepted": true,
+    "Id": 1,
+    "RaMenCoStatus": "Activated"
+  },
+  {
+    "Email": "lawjustincosep.eventspaceowner@gmail.com",
+    "Username": "LawCo",
+    "Password": "123456789",
+    "ConfirmPassword": "123456789",
+    "Status": "event space owner",
+    "IsTermsAccepted": true,
+    "Id": 2,
+    "RaMenCoStatus": "Activated"
+  },
+  {
+    "Email": "Jakma.eventspaceowner@.com",
+    "Username": "Jak",
+    "Password": "123456789",
+    "ConfirmPassword": "123456789",
+    "Status": "event space owner",
+    "IsTermsAccepted": true,
+    "Id": 3,
+    "RaMenCoStatus": "Activated"
+  }
+]

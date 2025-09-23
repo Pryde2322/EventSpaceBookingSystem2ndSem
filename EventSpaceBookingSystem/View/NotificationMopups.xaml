@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    x:Class="EventSpaceBookingSystem.NotificationMopups"
+    BackgroundColor="Transparent"
+    CloseWhenBackgroundIsClicked="True">
+
+	<AbsoluteLayout>
+		<!-- Tap Outside to Close -->
+		<BoxView
+            BackgroundColor="Transparent"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All">
+			<BoxView.GestureRecognizers>
+				<TapGestureRecognizer Tapped="OnBackgroundTapped"/>
+			</BoxView.GestureRecognizers>
+		</BoxView>
+
+		<!-- Main Frame -->
+		<Frame
+            WidthRequest="350"
+            CornerRadius="15"
+            BackgroundColor="White"
+            Padding="15"
+            HasShadow="True"
+            AbsoluteLayout.LayoutBounds="1,0.23,490,400"
+            AbsoluteLayout.LayoutFlags="PositionProportional">
+
+			<VerticalStackLayout Spacing="10">
+				<Label Text="Notifications" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+				<!-- Show this when list is empty -->
+				<Label
+                    Text="No Notifications"
+                    FontSize="14"
+                    TextColor="Gray"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding Notifications.Count, Converter={StaticResource ZeroToBoolConverter}}"/>
+
+				<!-- Scrollable notifications -->
+				<ScrollView>
+					<CollectionView ItemsSource="{Binding Notifications}" IsVisible="{Binding Notifications.Count, Converter={StaticResource GreaterThanZeroConverter}}">
+						<CollectionView.ItemTemplate>
+							<DataTemplate>
+								<Frame BackgroundColor="#F3F3F3" Padding="10" Margin="0,5" CornerRadius="10">
+									<VerticalStackLayout>
+										<Label Text="{Binding Title}" FontAttributes="Bold" FontSize="14"/>
+										<Label Text="{Binding Message}" FontSize="12"/>
+										<Label Text="{Binding Timestamp}" FontSize="10" TextColor="Gray" HorizontalOptions="End"/>
+									</VerticalStackLayout>
+								</Frame>
+							</DataTemplate>
+						</CollectionView.ItemTemplate>
+					</CollectionView>
+				</ScrollView>
+			</VerticalStackLayout>
+		</Frame>
+	</AbsoluteLayout>
+</mopups:PopupPage>

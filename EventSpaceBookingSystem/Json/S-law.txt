@@ -1,0 +1,18 @@
+[
+  {
+    "BookingId": "ddb0e8df-a51b-431c-905e-f4f1a9dc189a",
+    "Image": "Event Space Images/1/img_2.png",
+    "Headline": "bai Hotel Cebu",
+    "PublishedDate": "May 20, 2025",
+    "Status": "Confirmed",
+    "BookingDate": "2025-06-05T00:00:00",
+    "GuestCount": 240,
+    "EventTime": "Evening (5PM - 9PM)",
+    "ExtraChairs": "30",
+    "TimeExtension": "2 hours",
+    "Price": 5545,
+    "Category": null,
+    "Rating": 0,
+    "OwnerUsedId": 0
+  }
+]

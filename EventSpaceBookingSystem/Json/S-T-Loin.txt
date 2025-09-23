@@ -1,0 +1,15 @@
+[
+  {
+    "BookingId": "6a192b3c-d305-4c2f-8bdb-048f8f686e8f",
+    "Image": "event_placeholder.png",
+    "Headline": "Sample Venue 95",
+    "PublishedDate": "April 18, 2025",
+    "Status": "Confirmed",
+    "BookingDate": "2025-04-23T00:00:00",
+    "GuestCount": 620,
+    "EventTime": "Evening (5PM - 9PM)",
+    "ExtraChairs": "50",
+    "TimeExtension": "2 hours",
+    "Price": 5699.99
+  }
+]

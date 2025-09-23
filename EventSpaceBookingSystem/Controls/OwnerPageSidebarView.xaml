@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.Controls.OwnerPageSidebarView"
+             xmlns:local="clr-namespace:EventSpaceBookingSystem.Controls"
+             x:Name="component"
+             BackgroundColor="#FFFFFF">
+
+
+    <VerticalStackLayout HorizontalOptions="Start"  VerticalOptions="Center" Spacing="15" BackgroundColor="#FFFFFF" WidthRequest="50" Padding="0,15,0,0" Margin="0">
+        <StackLayout >
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                     Binding="{Binding SelectedPage, Source={x:Reference component}}"
+                     Value="Home">
+                    <Setter Property="BackgroundColor" Value="#D3D3D3"/>
+                </DataTrigger>
+            </StackLayout.Triggers>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnHomeClicked"/>
+            </StackLayout.GestureRecognizers>
+            <Image Source="ownerpage_home.png" WidthRequest="24" HeightRequest="45"/>
+        </StackLayout>
+
+        <!--<StackLayout>
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                     Binding="{Binding SelectedPage, Source={x:Reference component}}"
+                     Value="Profile">
+                    <Setter Property="BackgroundColor" Value="#D3D3D3"/>
+                </DataTrigger>
+            </StackLayout.Triggers>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnProfileClicked"/>
+            </StackLayout.GestureRecognizers>
+            <Image Source="ownerpage_profile.png" WidthRequest="24" HeightRequest="45"/>
+        </StackLayout>-->
+
+        <!--<StackLayout>
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                     Binding="{Binding SelectedPage, Source={x:Reference component}}"
+                     Value="Settings">
+                    <Setter Property="BackgroundColor" Value="#D3D3D3"/>
+                </DataTrigger>
+            </StackLayout.Triggers>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnSettingsClicked"/>
+            </StackLayout.GestureRecognizers>
+            <Image Source="ownerpage_settings.png" WidthRequest="24" HeightRequest="45"/>
+        </StackLayout>-->
+
+        <StackLayout>
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                     Binding="{Binding SelectedPage, Source={x:Reference component}}"
+                     Value="Edit">
+                    <Setter Property="BackgroundColor" Value="#D3D3D3"/>
+                </DataTrigger>
+            </StackLayout.Triggers>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditClicked"/>
+            </StackLayout.GestureRecognizers>
+            <Image Source="ownerpage_edit.png" WidthRequest="24" HeightRequest="45"/>
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentView>
+ 

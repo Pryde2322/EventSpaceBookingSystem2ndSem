@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="EventSpaceBookingSystem.View.ProfileBox"
+                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+                  xmlns:viewModel="clr-namespace:EventSpaceBookingSystem.ViewModel">
+
+    <mopups:PopupPage.BindingContext>
+        <viewModel:ProfileBoxViewModel />
+    </mopups:PopupPage.BindingContext>
+
+    <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Start" Margin="0,75,10,0" HeightRequest="140">
+        <Border BackgroundColor="White" Padding="10" WidthRequest="300" Stroke="White">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout>
+
+                <!-- User Info -->
+                <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center">
+                    <Frame HeightRequest="50" WidthRequest="50" CornerRadius="25" IsClippedToBounds="True" Padding="0" BackgroundColor="Transparent">
+                        <Image Source="{Binding AvatarPath}" Aspect="AspectFill">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AvatarTappedCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+
+                    <VerticalStackLayout Grid.Column="1" Margin="10,0">
+                        <Label Text="{Binding Email}" FontSize="14"/>
+                        <Label Text="{Binding Username}" FontSize="14"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="status: " FontSize="12" />
+                            <Label Text="{Binding Status}" FontSize="12" FontAttributes="Bold"/>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <BoxView HeightRequest="1" BackgroundColor="#DDD" Margin="0,10"/>
+
+                <!-- Logout -->
+                <Button Text="Log out" Clicked="Logout_Clicked" BackgroundColor="Transparent" TextColor="#444" HorizontalOptions="End">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe9ba;" Color="#444" />
+                    </Button.ImageSource>
+                </Button>
+
+            </VerticalStackLayout>
+        </Border>
+    </HorizontalStackLayout>
+</mopups:PopupPage>

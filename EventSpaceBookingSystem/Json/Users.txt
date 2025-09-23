@@ -1,0 +1,47 @@
+[
+  {
+    "Email": "lawcosep@gmail.com",
+    "Username": "loin",
+    "Password": "123456789",
+    "ConfirmPassword": null,
+    "Status": "event space owner",
+    "IsTermsAccepted": false,
+    "Id": 1
+  },
+  {
+    "Email": "lawjustincosep@gmail.com",
+    "Username": "T-Loin",
+    "Password": "123456789",
+    "ConfirmPassword": null,
+    "Status": "event space owner",
+    "IsTermsAccepted": false,
+    "Id": 2
+  },
+  {
+    "Email": "Jakma@.com",
+    "Username": "Jakma",
+    "Password": "123456789",
+    "ConfirmPassword": null,
+    "Status": "event space owner",
+    "IsTermsAccepted": false,
+    "Id": 3
+  },
+  {
+    "Email": "law@gmail.com",
+    "Username": "law",
+    "Password": "123456789",
+    "ConfirmPassword": null,
+    "Status": "standard",
+    "IsTermsAccepted": false,
+    "Id": 4
+  },
+  {
+    "Email": "charle@.com",
+    "Username": "charle",
+    "Password": "quagmire2322",
+    "ConfirmPassword": null,
+    "Status": "standard",
+    "IsTermsAccepted": false,
+    "Id": 5
+  }
+]

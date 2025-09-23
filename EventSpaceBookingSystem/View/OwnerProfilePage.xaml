@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.OwnerProfilePage"
+             xmlns:controls="clr-namespace:EventSpaceBookingSystem.Controls"
+             BackgroundColor="#E7E7E7">
+
+
+    <Grid ColumnDefinitions="50,*">
+        <controls:OwnerPageSidebarView Grid.Column="0" SelectedPage="Profile"/>
+        <StackLayout Orientation="Vertical" Grid.Column="1">
+            <Grid ColumnDefinitions="*,*">
+                <HorizontalStackLayout Grid.Column="0" 
+                                       Padding="15,10,0,0">
+                    <Label Text="RAMENCO"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           TextColor="Black"/>
+                    <Label Text="  Space Booking"
+                           FontSize="Medium"
+                           TextColor="Black"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1"  
+                               Padding="0,5,25,0"
+                               HorizontalOptions="End">
+                    <ImageButton Source="bell.png" />
+                </HorizontalStackLayout>
+            </Grid>
+            <Line X2="1920" Stroke="Black"/>
+            <Grid ColumnDefinitions="*,*" WidthRequest="780" Margin="30,20,0,0" HorizontalOptions="Start">
+                <HorizontalStackLayout Grid.Column="0" >
+                    <StackLayout Orientation="Vertical" WidthRequest="200" Margin="30,0,0,0">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Border Stroke="Black" 
+                                    StrokeThickness="0.5"
+                                    WidthRequest="80" 
+                                    HeightRequest="80" 
+                                    HorizontalOptions="Start">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="50" />
+                                </Border.StrokeShape>
+                            </Border>
+                            <Label x:Name="lblProfileName"
+                                   Text="John Doe"
+                                   TextColor="Black"
+                                   FontSize="20" 
+                                   FontAttributes="Bold"
+                                   Padding="0,25,0,0"/>
+                        </StackLayout>
+                        <Label Text="Joined: February 09, 2021" 
+                               TextColor="Black"
+                               FontSize="11"/>
+                    </StackLayout>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="20">
+                    <Border WidthRequest="180" HeightRequest="70" 
+                            StrokeShape="RoundRectangle 15" 
+                            Stroke="Transparent" BackgroundColor="#D9D9D9">
+                        <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                            <Label Text="Event Spaces Owned:"
+                                   FontAttributes="Bold"
+                                   FontSize="12"
+                                   TextColor="Black"/>
+                        </StackLayout>
+                    </Border>
+                    <Border WidthRequest="180" HeightRequest="70" 
+                            StrokeShape="RoundRectangle 15" 
+                            Stroke="Transparent" BackgroundColor="#D9D9D9">
+                        <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                            <Label Text="Total Bookings:"
+                                   FontAttributes="Bold"
+                                   FontSize="12"
+                                   TextColor="Black"/>
+                        </StackLayout>
+                    </Border>
+                </HorizontalStackLayout>
+            </Grid>
+            <VerticalStackLayout HorizontalOptions="Center" WidthRequest="600">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" 
+                             Spacing="10" >
+                    <Border HeightRequest="35" WidthRequest="140" 
+                            BackgroundColor="#4DB5FF"
+                            Stroke="#4DB5FF" >
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+                        <Label Text="Update Event Space"
+                               FontSize="11"
+                               HorizontalTextAlignment="Center" 
+                               VerticalTextAlignment="Center"/>
+                        <!--<Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnUpdateBtnClicked"/>
+                        </Border.GestureRecognizers>-->
+                    </Border>
+                    <Border HeightRequest="35" WidthRequest="140" 
+                            BackgroundColor="#4DB5FF"
+                            Stroke="#4DB5FF">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+                        <Label Text="Add Event Space"
+                               FontSize="11"
+                               HorizontalTextAlignment="Center" 
+                               VerticalTextAlignment="Center"/>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAddEventBtnClicked"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </StackLayout>
+                <Grid ColumnDefinitions="300,300" RowDefinitions="*,*" 
+                      WidthRequest="600" 
+                      ColumnSpacing="10" 
+                      RowSpacing="10"
+                      Margin="0,10,0,0">
+                    <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" 
+                                 HorizontalOptions="Start" 
+                                 Spacing="10">
+                        <Border WidthRequest="300" 
+                                HeightRequest="150" 
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#D9D9D9"
+                                Stroke="#D9D9D9">
+                            <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                                <Label Text="Reviews:"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="Black"/>
+                            </StackLayout>
+
+                        </Border>
+                        <Border WidthRequest="300" 
+                                HeightRequest="70" 
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#D9D9D9"
+                                Stroke="#D9D9D9">
+                            <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                                <Label Text="Total Earnings:"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="Black"/>
+                            </StackLayout>
+                        </Border>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="1" 
+                         HorizontalOptions="Start" 
+                         Spacing="10">
+                        <Border WidthRequest="300" 
+                                HeightRequest="150" 
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#D9D9D9"
+                                Stroke="#D9D9D9">
+                            <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                                <Label Text="Recent Bookings:"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="Black"/>
+                            </StackLayout>
+
+                        </Border>
+                        <Border WidthRequest="300" 
+                                HeightRequest="70" 
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#D9D9D9"
+                                Stroke="#D9D9D9">
+                            <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                                <Label Text="Ratings:"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="Black"/>
+                            </StackLayout>
+
+                        </Border>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2">
+                        <Border HeightRequest="220" 
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#D9D9D9"
+                                Stroke="#D9D9D9">
+                            <StackLayout Orientation="Vertical" Padding="10,0,0,0">
+                                <Label Text="Booking Peaks:"
+                                       FontAttributes="Bold"
+                                       FontSize="12"
+                                       TextColor="Black"/>
+                            </StackLayout>
+                        </Border>
+                    </StackLayout>
+                </Grid>
+            </VerticalStackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

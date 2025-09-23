@@ -1,0 +1,11 @@
+[
+  {
+    "Id": "23320ef8-8deb-4a58-99b1-c85ad0faff62",
+    "EventSpaceName": "Casa Gorordos Cebu",
+    "EventSpaceDescription": "This place is bussin no cap my pussy is so horny ahh orgasm what the fuck am i talking about lmao this is crazy. Just be sure to call me during the times where we survive and procreate. Damn this is a joke",
+    "EventSpaceCapacity": 120,
+    "NormalSpaceRate": 10000,
+    "ExtensionSpaceRate": 2500,
+    "TableSpaceRate": 1234
+  }
+]

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:EventSpaceBookingSystem.View"
+       x:Class="EventSpaceBookingSystem.AppShell" 
+       Title="Event Space Booking System">
+
+
+
+    <!--<ShellContent ContentTemplate="{DataTemplate local:OwnerProfilePage}" Route="OwnerProfilePage" />-->
+    <!--<ShellContent ContentTemplate="{DataTemplate local:OwnerHomePage}" Route="OwnerHomePage" />-->
+    <ShellContent Title="Landing Page" ContentTemplate="{DataTemplate local:LandingPage}" Route="LandingPage"/>
+    <ShellContent Title="Sign Up" ContentTemplate="{DataTemplate local:SignUpPage}" Route="SignUpPage"/>
+    
+
+
+</Shell>
+ 

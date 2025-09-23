@@ -1,0 +1,42 @@
+[
+  {
+    "Title": "Booking Status Updated",
+    "Message": "Your booking \u0027bai Hotel Cebu\u0027 is now marked as \u0027Payment Successful\u0027.",
+    "Timestamp": "May 21, 2025 3:54 am"
+  },
+  {
+    "Title": "Booking Accepted",
+    "Message": "Your booking for \u0027bai Hotel Cebu\u0027 has been accepted.",
+    "Timestamp": "May 21, 2025 3:54 am"
+  },
+  {
+    "Title": "Booking Status Updated",
+    "Message": "Your booking \u0027bai Hotel Cebu\u0027 is now marked as \u0027Confirmed\u0027.",
+    "Timestamp": "May 21, 2025 3:54 am"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027bai Hotel Cebu\u0027 has been in Pending.",
+    "Timestamp": "May 21, 2025 3:53 am"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Toyoko Inn Cebu\u0027 has been in Pending.",
+    "Timestamp": "May 20, 2025 8:25 pm"
+  },
+  {
+    "Title": "Booking Cancelled",
+    "Message": "You have cancelled your booking for \u0027Solea Mactan Resort\u0027.",
+    "Timestamp": "May 20, 2025 4:30 AM"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Solea Mactan Resort\u0027 has been in Pending.",
+    "Timestamp": "May 20, 2025 4:30 AM"
+  },
+  {
+    "Title": "Booking Pending",
+    "Message": "Your booking for \u0027Jpark Island Resort \u0026 Waterpark Cebu\u0027 has been in Pending.",
+    "Timestamp": "May 20, 2025 4:23 AM"
+  }
+]

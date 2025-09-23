@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.LoginPage"
+             BackgroundColor="#EDEDED">
+    <ScrollView>
+        <!-- Use Grid to Ensure Single Content Element -->
+	<Grid VerticalOptions="Center"
+          HorizontalOptions="Center">
+
+		<!-- White Background Container with Rounded Corners -->
+		<Frame WidthRequest="500"
+               BackgroundColor="White"
+               CornerRadius="20"
+               Padding="30"
+               HasShadow="False"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+
+			<VerticalStackLayout>
+
+				<!-- Welcome Title -->
+				<Label Text="Welcome."
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="Black"
+                       Margin="0,0,0,20"/>
+
+				<!-- Email Input -->
+                    <StackLayout HorizontalOptions="Center" Spacing="10">
+                        <Label Text="Email" TextColor="Black"/>
+                        <Entry Placeholder="Enter your email here"
+                               Text="{Binding Email}"
+                               Keyboard="Email"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"
+                               WidthRequest="380"
+                               HeightRequest="40"/>
+                    </StackLayout>
+
+				<!-- Password Input -->
+                    <StackLayout HorizontalOptions="Center" Spacing="10" Margin="0,10,0,0">
+                        <Label Text="Password" TextColor="Black"/>
+                        <HorizontalStackLayout>
+                            <Entry x:Name="txtPassword"
+                                   Text="{Binding Password}"
+                                   IsPassword="{Binding IsPasswordVisible, Mode=TwoWay}"
+                                   Placeholder="Enter your password here"
+                                   BackgroundColor="Transparent"
+                                   TextColor="Black"
+                                   WidthRequest="320"
+                                   HeightRequest="40"/>
+                            <Button Text="Show" Clicked="OnShowPasswordClicked" BackgroundColor="Transparent" TextColor="Gray"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+
+				<!-- Terms & Conditions -->
+                    <!-- Terms & Conditions -->
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Margin="0,15,0,0">
+                        <CheckBox IsChecked="{Binding IsTermsAccepted}" />
+                        <Label Text="I agree with Terms &amp; Conditions"
+                               VerticalOptions="Center"
+                               Margin="5,0,0,0"
+                               TextColor="Black"/>
+                    </StackLayout>
+
+                    <!-- Tooltip Message -->
+                    <Label Text="{Binding TooltipMessage}" 
+                           TextColor="Red" 
+                           IsVisible="{Binding IsTooltipVisible}" 
+                           FontSize="12" 
+                           Margin="0,0,0,10" 
+                           HorizontalOptions="Center"/>
+                    <!-- Log In Button -->
+                    <Button Text="Log in"
+                            BackgroundColor="#8A8A8A"
+                            TextColor="White"
+                            HeightRequest="45"
+                            WidthRequest="220"
+                            HorizontalOptions="Center"
+                            CornerRadius="15"
+                            Margin="0,20,0,0"
+                            Clicked="OnLoginClicked"/>
+
+				<!-- Or Log in with 
+				<Label Text="Or Log in with:"
+                       HorizontalOptions="Center"
+                       TextColor="Gray"
+                       Margin="10,20,0,5"/>  -->
+
+				<!-- Social Login Icons 
+                    <StackLayout Orientation="Horizontal"
+                                HorizontalOptions="Center"
+                                Spacing="20"
+                                Margin="0,20,0,0">
+
+                        <ImageButton Source="google_icon.png"
+                 WidthRequest="40"
+                 HeightRequest="40"
+                 BackgroundColor="Transparent"
+                 Clicked="OnGoogleSignUpClicked"/>
+
+                        <ImageButton Source="facebook_icon.png"
+                 WidthRequest="40"
+                 HeightRequest="40"
+                 BackgroundColor="Transparent"
+                 Clicked="OnFacebookSignUpClicked"/>
+                    </StackLayout> -->
+
+				<!-- Sign-up Link -->
+				<StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             Margin="10,20,0,0">
+					<Label Text="Don't have an account?" TextColor="Black"/>
+					<Label Text="Sign up"
+                           FontAttributes="Bold"
+                           TextColor="#3B82F6">
+						<Label.GestureRecognizers>
+							<TapGestureRecognizer Tapped="OnSignUpTapped"/>
+						</Label.GestureRecognizers>
+					</Label>
+				</StackLayout>
+
+			</VerticalStackLayout>
+
+		</Frame>
+
+	</Grid>
+    </ScrollView>
+</ContentPage>

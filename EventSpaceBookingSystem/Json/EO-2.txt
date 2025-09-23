@@ -1,0 +1,24 @@
+[
+  {
+    "Title": "Jpark Island Resort \u0026 Waterpark Cebu",
+    "Rating": 0,
+    "ReviewCount": 0,
+    "Capacity": "500",
+    "FormattedPrice": "\u20B13543 / day",
+    "DailyRate": "3543",
+    "ExtensionRate": "567",
+    "TableRate": "234",
+    "Location": "M.L. Quezon Highway, Barangay Maribago, Lapu Lapu City, Cebu, 6015 Mactan, Philippines",
+    "Category": "Beach, Hotel, Resort",
+    "Description1": "This resort boasts an idyllic settling on Mactan Island. Within its 16.5 hectare expanse, the resort comprises beautifully-appointed 568 rooms, suites and villas, 6 themed pools, 10 dining outlets, a casino, activity zone, spa, fitness center, dive shop, indoor themed park and private beach. The highlights of the sprawling water complex include 3 towering waterslides, a lazy river pool, and a pool with beach-like shoreline.\r\rLocated in Mactan Island, Jpark Island Resort and Waterpark is a perfect starting point from which to explore Cebu featuring a complete list of amenities and offer standard service to guests that will find their stay at the property a comfortable one. Convenience and comfort makes Jpark Island Resort and Waterpark the perfect choice for your stay in Cebu.",
+    "Description2": null,
+    "UploadedImage": null,
+    "ImageUrls": [
+      "Event Space Images/2/img_1.png",
+      "Event Space Images/2/img_2.png",
+      "Event Space Images/2/img_3.png",
+      "Event Space Images/2/img_4.png"
+    ],
+    "ImageUrl": "Event Space Images/2/img_1.png"
+  }
+]

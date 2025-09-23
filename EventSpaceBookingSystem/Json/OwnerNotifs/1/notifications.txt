@@ -1,0 +1,22 @@
+[
+  {
+    "Title": "Payment Received",
+    "Message": "loin has successfully paid for their booking \u0027Shangri-La The Chenrezig Hotel\u0027 (Booking ID: bdb679f2-01b2-4c1b-a446-9191c6db1b8b).",
+    "Timestamp": "May 21, 2025 8:44 AM"
+  },
+  {
+    "Title": "New Booking",
+    "Message": "loin booked your \u0027Shangri-La The Chenrezig Hotel\u0027 with BookingID bdb679f2-01b2-4c1b-a446-9191c6db1b8b. Confirm it now.",
+    "Timestamp": "May 21, 2025 8:41 AM"
+  },
+  {
+    "Title": "New Booking",
+    "Message": "Jakma booked your \u0027bai Hotel Cebu\u0027 with BookingID b0de7690-75f7-4242-9e25-fe39896b7a00. Confirm it now.",
+    "Timestamp": "May 21, 2025 3:53 am"
+  },
+  {
+    "Title": "New Booking",
+    "Message": "law booked your \u0027bai Hotel Cebu\u0027 with BookingID ddb0e8df-a51b-431c-905e-f4f1a9dc189a. Confirm it now.",
+    "Timestamp": "May 20, 2025 7:25 PM"
+  }
+]
