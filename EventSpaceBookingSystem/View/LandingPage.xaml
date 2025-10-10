@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<!--<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventSpaceBookingSystem.View.LandingPage"
              BackgroundColor="#F5F5F5">
     <ScrollView>
         <Grid RowDefinitions="Auto, *">
-            <!-- Header Section with Background Image -->
+            --><!-- Header Section with Background Image --><!--
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- StackLayout containing Background Image with Title and Tagline -->
+                --><!-- StackLayout containing Background Image with Title and Tagline --><!--
                 <StackLayout BackgroundColor="White">
-                    <!-- Top Buttons (Login & Sign Up) -->
+                    --><!-- Top Buttons (Login & Sign Up) --><!--
                     <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="10" Margin="10,10,10,0" HorizontalOptions="End" Padding="0,0,0,20" BackgroundColor="White">
                         <Button Text="Log in" CornerRadius="5" BackgroundColor="#F0F0F0" TextColor="Black" WidthRequest="80" HeightRequest="36" Clicked="OnLoginClicked"/>
                         <Button Text="Sign up" CornerRadius="5" BackgroundColor="#686868" TextColor="White" WidthRequest="80" HeightRequest="36" Clicked="OnSignUpClicked"/>
                     </StackLayout>
 
-                    <!-- Background Image -->
+                    --><!-- Background Image --><!--
                     <Grid>
                         <Image Source="header_background.png" Aspect="AspectFill" HeightRequest="200" />
                         <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20,20,20,30" Spacing="5">
@@ -32,19 +32,19 @@
                 </StackLayout>
             </Grid>
 
-            <!-- Popular Booked Events Section -->
+            --><!-- Popular Booked Events Section --><!--
             <Grid Grid.Row="1" Padding="20,30,20,20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Title Label Section -->
+                --><!-- Title Label Section --><!--
                 <StackLayout Grid.Row="0" Margin="0,0,0,20">
                     <Label Text="Popular Booked Events" FontSize="20" FontAttributes="Bold" Margin="0,0,0,20"/>
                 </StackLayout>
 
-                <!-- Events CollectionView and Navigation Arrows -->
+                --><!-- Events CollectionView and Navigation Arrows --><!--
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -52,10 +52,10 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Left Arrow -->
+                    --><!-- Left Arrow --><!--
                     <ImageButton Grid.Column="0" Source="left_arrow.png" WidthRequest="40" HeightRequest="40" CornerRadius="20" Padding="0" BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,15,0" Clicked="OnPreviousCommand"/>
 
-                    <!-- Events CollectionView -->
+                    --><!-- Events CollectionView --><!--
                     <CollectionView Grid.Column="1" x:Name="eventsCollection" ItemsSource="{Binding PopularEvents}" HeightRequest="320">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
@@ -88,10 +88,64 @@
                     </CollectionView>
 
 
-                    <!-- Right Arrow -->
+                    --><!-- Right Arrow --><!--
                     <ImageButton Grid.Column="2" Source="right_arrow.png" WidthRequest="40" HeightRequest="40" CornerRadius="20" Padding="0" BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Center" Margin="15,0,0,0" Clicked="OnNextCommand"/>
                 </Grid>
             </Grid>
         </Grid>
     </ScrollView>
+</ContentPage>-->
+
+
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.LandingPage"
+             BackgroundColor="#F5F5F5">
+
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="40" Padding="30">
+        <!-- Title -->
+        <Label Text="Ramenco"
+               FontSize="40"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="Black" />
+
+        <!-- Calendar Image -->
+        <Image Source="calendar_icon.png"
+               HeightRequest="160"
+               WidthRequest="160"
+               HorizontalOptions="Center"
+               Aspect="AspectFit" />
+
+
+        <StackLayout>
+            
+            <Button Text="Login"
+            Clicked="OnLoginClicked"
+            BackgroundColor="#E0E0E0"
+            TextColor="Black"
+            CornerRadius="20"
+            HeightRequest="44"
+            WidthRequest="260"
+            HorizontalOptions="Center"
+            FontSize="16"
+            Margin="0,60,0,20"/>
+
+            <!-- Sign Up Button -->
+            <Button Text="Sign up"
+            Clicked="OnSignUpClicked"
+            BackgroundColor="#E0E0E0"
+            TextColor="Black"
+            CornerRadius="20"
+            HeightRequest="44"
+            WidthRequest="260"
+            HorizontalOptions="Center"
+            FontSize="16" />
+            
+        </StackLayout>
+        <!-- Login Button -->
+
+    </VerticalStackLayout>
 </ContentPage>

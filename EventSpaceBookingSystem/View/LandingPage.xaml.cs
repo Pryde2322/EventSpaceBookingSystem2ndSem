@@ -52,25 +52,25 @@ namespace EventSpaceBookingSystem.View
             }
         }
 
-        private void ScrollToCurrentIndex()
-        {
-            if (eventsCollection != null && _viewModel.CurrentEvent != null)
-            {
-                eventsCollection.ScrollTo(_viewModel.CurrentEvent, position: ScrollToPosition.Center, animate: true);
-            }
-        }
+        //private void ScrollToCurrentIndex()
+        //{
+        //    if (eventsCollection != null && _viewModel.CurrentEvent != null)
+        //    {
+        //        eventsCollection.ScrollTo(_viewModel.CurrentEvent, position: ScrollToPosition.Center, animate: true);
+        //    }
+        //}
 
-        private void OnPreviousCommand(object sender, EventArgs e)
-        {
-            _viewModel.PreviousCommand.Execute(null);
-            ScrollToCurrentIndex();
-        }
+        //private void OnPreviousCommand(object sender, EventArgs e)
+        //{
+        //    _viewModel.PreviousCommand.Execute(null);
+        //    ScrollToCurrentIndex();
+        //}
 
-        private void OnNextCommand(object sender, EventArgs e)
-        {
-            _viewModel.NextCommand.Execute(null);
-            ScrollToCurrentIndex();
-        }
+        //private void OnNextCommand(object sender, EventArgs e)
+        //{
+        //    _viewModel.NextCommand.Execute(null);
+        //    ScrollToCurrentIndex();
+        //}
 
     }
 }
