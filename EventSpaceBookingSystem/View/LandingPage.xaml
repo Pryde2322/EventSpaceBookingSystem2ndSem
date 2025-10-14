@@ -1,5 +1,55 @@
-<!--<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventSpaceBookingSystem.View.LandingPage"
+             BackgroundColor="#F5F5F5">
+
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="40" Padding="30">
+        <!-- Title -->
+        <Label Text="Ramenco"
+               FontSize="40"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="Black" />
+
+        <!-- Calendar Image -->
+        <Image Source="booking.png"
+               HeightRequest="160"
+               WidthRequest="160"
+               HorizontalOptions="Center"
+               Aspect="AspectFit" />
+
+
+        <StackLayout>
+
+            <Button Text="Login"
+            Clicked="OnLoginClicked"
+            BackgroundColor="#E0E0E0"
+            TextColor="Black"
+            CornerRadius="20"
+            HeightRequest="44"
+            WidthRequest="260"
+            HorizontalOptions="Center"
+            FontSize="16"
+            Margin="0,60,0,20"/>
+
+            <!-- Sign Up Button -->
+            <Button Text="Sign up"
+            Clicked="OnSignUpClicked"
+            BackgroundColor="#E0E0E0"
+            TextColor="Black"
+            CornerRadius="20"
+            HeightRequest="44"
+            WidthRequest="260"
+            HorizontalOptions="Center"
+            FontSize="16" />
+
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentPage>
+
+<!--<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventSpaceBookingSystem.View.LandingPage"
              BackgroundColor="#F5F5F5">
@@ -95,57 +145,3 @@
         </Grid>
     </ScrollView>
 </ContentPage>-->
-
-
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EventSpaceBookingSystem.View.LandingPage"
-             BackgroundColor="#F5F5F5">
-
-
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="40" Padding="30">
-        <!-- Title -->
-        <Label Text="Ramenco"
-               FontSize="40"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="Black" />
-
-        <!-- Calendar Image -->
-        <Image Source="calendar_icon.png"
-               HeightRequest="160"
-               WidthRequest="160"
-               HorizontalOptions="Center"
-               Aspect="AspectFit" />
-
-
-        <StackLayout>
-            
-            <Button Text="Login"
-            Clicked="OnLoginClicked"
-            BackgroundColor="#E0E0E0"
-            TextColor="Black"
-            CornerRadius="20"
-            HeightRequest="44"
-            WidthRequest="260"
-            HorizontalOptions="Center"
-            FontSize="16"
-            Margin="0,60,0,20"/>
-
-            <!-- Sign Up Button -->
-            <Button Text="Sign up"
-            Clicked="OnSignUpClicked"
-            BackgroundColor="#E0E0E0"
-            TextColor="Black"
-            CornerRadius="20"
-            HeightRequest="44"
-            WidthRequest="260"
-            HorizontalOptions="Center"
-            FontSize="16" />
-            
-        </StackLayout>
-        <!-- Login Button -->
-
-    </VerticalStackLayout>
-</ContentPage>

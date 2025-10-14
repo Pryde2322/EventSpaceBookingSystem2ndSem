@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventSpaceBookingSystem.View.SignUpPage"
              BackgroundColor="#EDEDED">
@@ -74,7 +74,7 @@
 
                     <Button Text="Sign up" Clicked="OnSignUpClicked" BackgroundColor="#8A8A8A" TextColor="White" HeightRequest="45" WidthRequest="220" HorizontalOptions="Center" CornerRadius="15"/>
 
-                   <!-- <Label Text="Or Sign up with" HorizontalOptions="Center" TextColor="Gray"/>
+                    <Label Text="Or Sign up with" HorizontalOptions="Center" TextColor="Gray"/>
 
                     <StackLayout Orientation="Horizontal"
                                 HorizontalOptions="Center"
@@ -92,7 +92,7 @@
                  HeightRequest="40"
                  BackgroundColor="Transparent"
                  Clicked="OnFacebookSignUpClicked"/>
-                    </StackLayout>  -->
+                    </StackLayout> 
                     <!-- Already have an account? Log in -->
                     <StackLayout Orientation="Horizontal"
              HorizontalOptions="Center"
@@ -116,3 +116,4 @@
         </Grid>
     </ScrollView>
 </ContentPage>
+   

@@ -17,48 +17,70 @@ namespace EventSpaceBookingSystem.View
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-            string result = await _viewModel.LoginAsync();
-
-            if (result.StartsWith("Standard"))
+            try
             {
-                await Navigation.PushAsync(new HomePage(_viewModel.LoggedInUser.Username, _viewModel.LoggedInUser.Email));
-            }
-            else if (result.StartsWith("Owner"))
-            {
-                // Check RaMenCoStatus for owner
-                var status = _viewModel.LoggedInUser?.RaMenCoStatus ?? string.Empty;
+                string result = await _viewModel.LoginAsync();
 
-                if (string.IsNullOrWhiteSpace(status))
+                if (string.IsNullOrEmpty(result))
                 {
-                    await DisplayAlert("Pending Approval", "Wait for the Admin to activate your account.", "OK");
+                    await DisplayAlert("Error", "Login failed. Please try again.", "OK");
                     return;
                 }
 
-                if (status.Equals("Deactivated", StringComparison.OrdinalIgnoreCase))
+                if (result.StartsWith("Standard"))
                 {
-                    await DisplayAlert("Account Deactivated", "Your account is deactivated. Please contact Customer Service at RaMenCo.CustomerService@gmail.com", "OK");
-                    return;
+                    await Navigation.PushAsync(new HomePage(_viewModel.LoggedInUser?.Username ?? "Guest", _viewModel.LoggedInUser?.Email ?? "N/A"));
                 }
+                else if (result.StartsWith("Owner"))
+                {
+                    // Check RaMenCoStatus for owner
+                    var status = _viewModel.LoggedInUser?.RaMenCoStatus ?? string.Empty;
 
-                if (status.Equals("Activated", StringComparison.OrdinalIgnoreCase))
+                    if (string.IsNullOrWhiteSpace(status))
+                    {
+                        await DisplayAlert("Pending Approval", "Wait for the Admin to activate your account.", "OK");
+                        return;
+                    }
+
+                    if (status.Equals("Deactivated", StringComparison.OrdinalIgnoreCase))
+                    {
+                        await DisplayAlert("Account Deactivated", "Your account is deactivated. Please contact Customer Service at RaMenCo.CustomerService@gmail.com", "OK");
+                        return;
+                    }
+
+                    if (status.Equals("Activated", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (result.Contains(":") && int.TryParse(result.Split(':')[1], out int ownerId))
+                        {
+                            Session.CurrentOwnerId = ownerId;
+                            await Navigation.PushAsync(new OwnerHomePage(ownerId));
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "Invalid owner data.", "OK");
+                        }
+                    }
+                }
+                else if (result == "Admin")
                 {
-                    int ownerId = int.Parse(result.Split(':')[1]);
-                    Session.CurrentOwnerId = ownerId;
-                    await Navigation.PushAsync(new OwnerHomePage(ownerId));
+                    await Navigation.PushAsync(new AdminPage());
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Invalid Email or Password.", "OK");
                 }
             }
-            else if (result == "Admin")
+            catch (Exception ex)
             {
-                await Navigation.PushAsync(new AdminPage());
-            }
-            else
-            {
-                await DisplayAlert("Error", "Invalid Email or Password.", "OK");
+                await DisplayAlert("Login Error", ex.Message, "OK");
             }
         }
 
 
-
+        private void OnShowPasswordClicked(object sender, EventArgs e)
+        {
+            _viewModel.TogglePasswordVisibility();
+        }
 
         private async void OnGoogleSignUpClicked(object sender, EventArgs e)
         {
@@ -75,9 +97,5 @@ namespace EventSpaceBookingSystem.View
             await Navigation.PushAsync(new SignUpPage());
         }
 
-        private void OnShowPasswordClicked(object sender, EventArgs e)
-        {
-            _viewModel.TogglePasswordVisibility();
-        }
     }
 }

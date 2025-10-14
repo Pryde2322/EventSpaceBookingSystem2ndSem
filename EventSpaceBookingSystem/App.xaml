@@ -19,6 +19,7 @@
             <converters:CategoryCheckConverter x:Key="CategoryCheckConverter" />
             <converters:BoolToDropdownTextConverter x:Key="BoolToDropdownTextConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:PasswordEyeIconConverter x:Key="PasswordEyeIconConverter"/>
             <converters:CategoryContainsConverter x:Key="CategoryContainsConverter" />
             <converters:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter" />
             <converters:CanCancelConverter x:Key="CanCancelConverter" />

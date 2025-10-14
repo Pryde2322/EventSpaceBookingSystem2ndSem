@@ -15,7 +15,7 @@ namespace EventSpaceBookingSystem
             //MainPage = new NavigationPage(new LandingPage());
             //MainPage = new NavigationPage(new OwnerHomePage());
             //MainPage = new NavigationPage(new OwnerProfilePage());
-            MainPage = new SplashScreen();
+            MainPage = new NavigationPage(new SplashScreen());
         }
     }
 }
