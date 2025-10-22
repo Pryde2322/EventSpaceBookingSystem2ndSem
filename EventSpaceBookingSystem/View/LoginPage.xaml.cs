@@ -82,19 +82,14 @@ namespace EventSpaceBookingSystem.View
             _viewModel.TogglePasswordVisibility();
         }
 
-        private async void OnGoogleSignUpClicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Not Available", "This feature is not currently available", "OK");
-        }
-
-        private async void OnFacebookSignUpClicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Not Available", "This feature is not currently available", "OK");
-        }
-
         private async void OnSignUpTapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SignUpPage());
+        }
+
+        private async void OnForgotPasswordTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new NewPasswordPage(_viewModel));
         }
 
     }

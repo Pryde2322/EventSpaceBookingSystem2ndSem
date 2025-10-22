@@ -86,37 +86,21 @@
                             Margin="0,20,0,0"
                             Clicked="OnLoginClicked"/>
 
-                      <!--Or Log in with--> 
-				     <Label Text="Or Log in with:"
-                                HorizontalOptions="Center"
-                                TextColor="Gray"
-                                Margin="10,20,0,5"/>  
-
-                     <!--Social Login Icons--> 
-                    <StackLayout Orientation="Horizontal"
-                                HorizontalOptions="Center"
-                                Spacing="20"
-                                Margin="0,20,0,0">
-
-                        <ImageButton Source="google_icon.png"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    BackgroundColor="Transparent"
-                                    Clicked="OnGoogleSignUpClicked"/>
-
-                        <ImageButton Source="facebook_icon.png"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    BackgroundColor="Transparent"
-                                    Clicked="OnFacebookSignUpClicked"/>
-                    </StackLayout> 
+                    <Label Text="Forgot Password?"
+                           HorizontalOptions="Center"
+                           TextColor="#3B82F6"
+                           Margin="0,15,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnForgotPasswordTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <!-- Sign-up Link -->
                     <StackLayout Orientation="Horizontal"
                              HorizontalOptions="Center"
                              Margin="10,20,0,0">
                         <Label Text="Don't have an account?" TextColor="Black"/>
-                        <Label Text="Sign up"
+                        <Label Text=" Sign up"
                            FontAttributes="Bold"
                            TextColor="#3B82F6">
                             <Label.GestureRecognizers>

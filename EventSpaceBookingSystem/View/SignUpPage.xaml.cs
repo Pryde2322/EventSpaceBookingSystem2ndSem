@@ -40,17 +40,6 @@ public partial class SignUpPage : ContentPage
         rst();
 
     }
-
-    private async void OnGoogleSignUpClicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Not Available", "This feature is not currently available", "OK");
-    }
-
-    private async void OnFacebookSignUpClicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Not Available", "This feature is not currently available", "OK");
-    }
-
     private async void OnLoginTapped(object sender, EventArgs e)
     {
         // Navigate to the LoginPage

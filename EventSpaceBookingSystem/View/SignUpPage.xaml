@@ -74,27 +74,7 @@
                     </StackLayout>
 
                     <Button Text="Sign up" Clicked="OnSignUpClicked" BackgroundColor="#8A8A8A" TextColor="White" HeightRequest="45" WidthRequest="220" HorizontalOptions="Center" CornerRadius="15" Margin="0,20,0,0"/>
-
-                     <Label Text="Or Sign up with" HorizontalOptions="Center" TextColor="Gray" Margin="0,20,0,0"/>
-
-                    <StackLayout Orientation="Horizontal"
-                                HorizontalOptions="Center"
-                                Spacing="20"
-                                Margin="0,20,0,0">
-
-                        <ImageButton Source="google_icon.png"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    BackgroundColor="Transparent"
-                                    Clicked="OnGoogleSignUpClicked"/>
-
-                        <ImageButton Source="facebook_icon.png"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    BackgroundColor="Transparent"
-                                    Clicked="OnFacebookSignUpClicked"/>
-                    </StackLayout>  
-
+                    
 
                     <!-- Already have an account? Log in -->
                     <StackLayout Orientation="Horizontal"
