@@ -6,7 +6,7 @@ using EventSpaceBookingSystem.Model;
 using EventSpaceBookingSystem.Services;
 using Microsoft.Maui.Controls;
 using System.Collections.Generic;
-
+using System.Linq; 
 namespace EventSpaceBookingSystem.ViewModel
 {
     public class LoginPageViewModel : INotifyPropertyChanged
@@ -149,8 +149,50 @@ namespace EventSpaceBookingSystem.ViewModel
             return "Invalid";
         }
 
+        public async Task<bool> ChangePasswordAsync(string email, string oldPassword, string newPassword)
+        {
+            
+            try
+            {
+                // --- 1. Check Standard Users ---
+                var users = await UserFileService.LoadUsersAsync(UserFileService.GetUsersFilePath);
+                var userToUpdate = users.FirstOrDefault(u => u.Email == email && u.Password == oldPassword);
 
+                if (userToUpdate != null)
+                {
+                    // Found the user. Update their password.
+                    userToUpdate.Password = newPassword;
 
+                    // Save the entire list of users back to the file
+                    await UserFileService.SaveUsersAsync(users, UserFileService.GetUsersFilePath);
+                    return true; // Success!
+                }
+
+                // --- 2. Check Event Space Owners ---
+                var owners = await UserFileService.LoadUsersAsync(UserFileService.GetEventSpaceOwnersFilePath);
+                var ownerToUpdate = owners.FirstOrDefault(o => o.Email == email && o.Password == oldPassword);
+
+                if (ownerToUpdate != null)
+                {
+                    // Found the owner. Update their password.
+                    ownerToUpdate.Password = newPassword;
+
+                    // Save the entire list of owners back to the file
+                    await UserFileService.SaveUsersAsync(owners, UserFileService.GetEventSpaceOwnersFilePath);
+                    return true; // Success!
+                }
+
+                // --- 3. No user found ---
+                // User was not found or the old password was incorrect
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                Console.WriteLine($"Error in ChangePasswordAsync: {ex.Message}");
+                return false;
+            }
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
