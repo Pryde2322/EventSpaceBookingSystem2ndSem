@@ -192,6 +192,32 @@ namespace EventSpaceBookingSystem.Services
             return userId; // Return the generated ID
         }
 
+        public static async Task SaveUsersAsync(List<Users> users, string filePath)
+        {
+            try
+            {
+                // Serialize the entire list of users to a JSON string
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true // Makes the JSON file readable
+                };
+                string json = JsonSerializer.Serialize(users, options);
+
+                // Write the JSON string back to the file, overwriting its contents
+                await File.WriteAllTextAsync(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception, consistent with your other methods
+                Console.WriteLine($"Error saving users to {filePath}: {ex.Message}");
+                var mainPage = App.Current?.Windows[0]?.Page;
+                if (mainPage != null)
+                {
+                    await mainPage.DisplayAlert("Error", $"Failed to save user list: {ex.Message}", "OK");
+                }
+            }
+        }
+        
         public static async Task<List<Users>> LoadUsersAsync(string filePath = null)
         {
             filePath ??= UsersFilePath;
@@ -352,7 +378,7 @@ namespace EventSpaceBookingSystem.Services
                 AddNotificationById(user.Id, "Booking Pending", $"Your booking for '{booking.Headline}' has been in Pending.");
             }
         }
-        
+
         public static async Task UpdateBookingStatusAsync(string username, string bookingId, string newStatus)
         {
             var bookings = await LoadBookingsAsync(username);
@@ -448,7 +474,7 @@ namespace EventSpaceBookingSystem.Services
             var users = await LoadUsersAsync();
 
             var user = users.FirstOrDefault(u => u.Email.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase)
-                                               || u.Username.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase));
+                                                 || u.Username.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase));
 
             if (user != null)
             {
