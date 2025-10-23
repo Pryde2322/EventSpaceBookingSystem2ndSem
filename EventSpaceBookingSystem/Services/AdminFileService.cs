@@ -6,12 +6,19 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EventSpaceBookingSystem.Model;
+using Microsoft.Maui.Storage; // ✅ needed for FileSystem.AppDataDirectory
 
 namespace EventSpaceBookingSystem.Services
 {
     public static class AdminFileService
     {
+        // ✅ Cross-platform JSON folder handling
+#if ANDROID
+        private static readonly string JsonDirectory = FileSystem.AppDataDirectory;
+#else
         private static readonly string JsonDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\Json"));
+#endif
+
         private static readonly string EventSpaceOwnersFilePath = Path.Combine(JsonDirectory, "EventSpaceOwners.txt");
 
         public static async Task<List<Owner>> LoadAllOwnersAsync()
@@ -78,7 +85,6 @@ namespace EventSpaceBookingSystem.Services
             return owners;
         }
 
-
         public static async Task<List<Transaction>> LoadAllTransactionsFromBookingsAsync()
         {
             var transactions = new List<Transaction>();
@@ -104,7 +110,6 @@ namespace EventSpaceBookingSystem.Services
                             Amount = $"₱{booking.Price}"
                         });
                     }
-
                 }
             }
 
@@ -137,6 +142,5 @@ namespace EventSpaceBookingSystem.Services
 
             return false;
         }
-
     }
 }

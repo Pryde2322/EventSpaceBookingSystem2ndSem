@@ -4,14 +4,22 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using EventSpaceBookingSystem.Model;
+using Microsoft.Maui.Storage; // ✅ for FileSystem.AppDataDirectory
+using Microsoft.Maui.Controls; // ✅ for Application.Current and ImageSource
 
 namespace EventSpaceBookingSystem.Services
 {
     public static class SpaceOwnerFileService
     {
+        // ✅ Cross-platform JSON folder
+#if ANDROID
+        private static readonly string JsonDirectory = FileSystem.AppDataDirectory;
+#else
         private static readonly string JsonDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\Json"));
+#endif
 
         private static string GetOwnerFilePath(int ownerId) =>
             Path.Combine(JsonDirectory, $"EO-{ownerId}.txt");
@@ -180,9 +188,7 @@ namespace EventSpaceBookingSystem.Services
             {
                 string notifDir = Path.Combine(JsonDirectory, "OwnerNotifs", ownerId.ToString());
                 if (!Directory.Exists(notifDir))
-                {
                     Directory.CreateDirectory(notifDir);
-                }
 
                 string notifFile = Path.Combine(notifDir, "notifications.txt");
 
@@ -212,7 +218,7 @@ namespace EventSpaceBookingSystem.Services
 
         public static async Task<List<EventModel>> LoadEventModelsAsync(int ownerId)
         {
-            string filePath = Path.Combine(JsonDirectory, $"EO-{ownerId}.txt");
+            string filePath = GetOwnerFilePath(ownerId);
 
             try
             {
@@ -233,14 +239,10 @@ namespace EventSpaceBookingSystem.Services
             }
         }
 
-
-
         public static async Task<Users> GetOwnerByIdAsync(int ownerId)
         {
             var users = await UserFileService.LoadUsersAsync();
             return users.FirstOrDefault(u => u.Id == ownerId);
         }
-
-
     }
 }
