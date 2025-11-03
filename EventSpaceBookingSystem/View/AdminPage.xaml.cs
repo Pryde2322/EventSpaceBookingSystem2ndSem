@@ -12,6 +12,13 @@ public partial class AdminPage : ContentPage
     {
         InitializeComponent();
         this.BindingContext = new AdminPageViewModel();
+        LoadOwners();
+    }
+
+    private async void LoadOwners()
+    {
+        var owners = await AdminFileService.LoadAllOwnersAsync();
+        OwnersListView.ItemsSource = owners; // OwnersListView: your ListView/CollectionView name
     }
 
     // Button click handlers for filter controls

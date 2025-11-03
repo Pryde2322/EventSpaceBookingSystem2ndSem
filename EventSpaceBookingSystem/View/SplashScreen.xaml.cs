@@ -17,7 +17,7 @@ public partial class SplashScreen : ContentPage
 
     private async void StartLoading()
     {
-        await Task.Delay(2000);
+        await Task.Delay(8000);
 
         await this.FadeTo(0, 400);
 

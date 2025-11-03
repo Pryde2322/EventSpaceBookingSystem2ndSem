@@ -16,7 +16,7 @@ namespace EventSpaceBookingSystem.Services
 #if ANDROID
         private static readonly string JsonDirectory = FileSystem.AppDataDirectory;
 #else
-        private static readonly string JsonDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\Json"));
+        private static readonly string JsonDirectory = AppContext.BaseDirectory;
 #endif
 
         private static readonly string EventSpaceOwnersFilePath = Path.Combine(JsonDirectory, "EventSpaceOwners.txt");

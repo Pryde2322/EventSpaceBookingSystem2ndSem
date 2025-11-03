@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using EventSpaceBookingSystem.Model;
 using System.Linq;
 using System.Collections.ObjectModel;
-using Microsoft.Maui.Storage; // ✅ needed for FileSystem.AppDataDirectory
+using Microsoft.Maui.Storage; // ✅ for FileSystem.AppDataDirectory & FileResult
+using Microsoft.Maui.Controls; // ✅ for Application.Current and ImageSource
+using System.Threading;
 
 namespace EventSpaceBookingSystem.Services
 {
@@ -42,6 +44,7 @@ namespace EventSpaceBookingSystem.Services
 #endif
         }
 
+        // ✅ UPDATED — ensures new event space owners are synced with admin view
         public static async Task SaveUserAsync(Users user)
         {
             try
@@ -50,6 +53,10 @@ namespace EventSpaceBookingSystem.Services
                 {
                     var userId = await SaveToFileAsync(user, EventSpaceOwnersFilePath);
                     await CreateEventSpaceOwnerFile(userId, user);
+
+                    // ✅ Automatically add owner to admin dashboard list
+                    await SpaceOwnerFileService.AddOwnerToAdminListAsync(user);
+
                     AddNotificationById(userId, "Account Status Changed", "Your account has been upgraded to Event Space Owner.");
                 }
                 else
@@ -66,6 +73,7 @@ namespace EventSpaceBookingSystem.Services
             }
         }
 
+        // ✅ UPDATED — same improvement as above
         public static async Task<int> SaveUserAndReturnIdAsync(Users user)
         {
             try
@@ -74,6 +82,10 @@ namespace EventSpaceBookingSystem.Services
                 {
                     var userId = await SaveToFileAsync(user, EventSpaceOwnersFilePath);
                     await CreateEventSpaceOwnerFile(userId, user);
+
+                    // ✅ Sync with admin
+                    await SpaceOwnerFileService.AddOwnerToAdminListAsync(user);
+
                     return userId;
                 }
                 else
@@ -97,10 +109,9 @@ namespace EventSpaceBookingSystem.Services
             var events = new List<EventModel>();
             var activeOwnerIds = new List<int>();
 
-            string ownersPath = EventSpaceOwnersFilePath;
-            if (File.Exists(ownersPath))
+            if (File.Exists(EventSpaceOwnersFilePath))
             {
-                var json = await File.ReadAllTextAsync(ownersPath);
+                var json = await File.ReadAllTextAsync(EventSpaceOwnersFilePath);
                 var users = JsonSerializer.Deserialize<List<Users>>(json);
                 if (users != null)
                 {
@@ -168,7 +179,6 @@ namespace EventSpaceBookingSystem.Services
 
             var serialized = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
             await File.WriteAllTextAsync(filePath, serialized);
-
             return userId;
         }
 
@@ -220,8 +230,8 @@ namespace EventSpaceBookingSystem.Services
 
             if (!File.Exists(filePath))
             {
-                var serialized = JsonSerializer.Serialize(user, new JsonSerializerOptions { WriteIndented = true });
-                await File.WriteAllTextAsync(filePath, serialized);
+                // For owner event lists, keep them as an empty array initially
+                await File.WriteAllTextAsync(filePath, "[]");
             }
         }
 
@@ -352,6 +362,11 @@ namespace EventSpaceBookingSystem.Services
             await File.WriteAllTextAsync(filePath, json);
         }
 
+        // -------------------------
+        // Image & avatar helpers
+        // -------------------------
+
+        // Keep SaveOwnerImagesAsync here for any callers that expect it on UserFileService
         public static async Task<List<string>> SaveOwnerImagesAsync(int ownerId, ObservableCollection<ImageSource> images)
         {
             var savedPaths = new List<string>();
@@ -360,42 +375,46 @@ namespace EventSpaceBookingSystem.Services
             if (!Directory.Exists(baseFolder))
                 Directory.CreateDirectory(baseFolder);
 
-            int index = 1;
+            // Determine next index (avoid overwrite)
+            var existingFiles = Directory.GetFiles(baseFolder, "img_*.png");
+            int maxIndex = existingFiles
+                .Select(f => Path.GetFileNameWithoutExtension(f))
+                .Select(f => int.TryParse(f.Replace("img_", ""), out int num) ? num : 0)
+                .DefaultIfEmpty(0)
+                .Max();
+
+            int index = maxIndex + 1;
+
             foreach (var image in images)
             {
                 string newFileName = $"img_{index++}.png";
                 string fullPath = Path.Combine(baseFolder, newFileName);
                 string relativePath = Path.Combine("Event Space Images", ownerId.ToString(), newFileName);
 
-                if (image is StreamImageSource streamSource)
+                try
                 {
-                    var stream = await streamSource.Stream(CancellationToken.None);
-                    using var fileStream = File.Create(fullPath);
-                    await stream.CopyToAsync(fileStream);
+                    if (image is StreamImageSource streamSource)
+                    {
+                        var originalStream = await streamSource.Stream(CancellationToken.None);
+                        using var ms = new MemoryStream();
+                        await originalStream.CopyToAsync(ms);
+                        ms.Position = 0;
+                        using var fileStream = File.Create(fullPath);
+                        await ms.CopyToAsync(fileStream);
+                    }
+                    // For other ImageSource types you might want to handle differently
+                    savedPaths.Add(relativePath.Replace("\\", "/"));
                 }
-
-                savedPaths.Add(relativePath.Replace("\\", "/"));
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to save owner image: {ex.Message}");
+                }
             }
 
             return savedPaths;
         }
 
-        public static async Task<bool> UpdateUserStatusAsync(string emailOrUsername, string newStatus)
-        {
-            var users = await LoadUsersAsync();
-            var user = users.FirstOrDefault(u => u.Email.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase)
-                                              || u.Username.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase));
-
-            if (user != null)
-            {
-                user.Status = newStatus;
-                var updatedJson = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-                await File.WriteAllTextAsync(UsersFilePath, updatedJson);
-                return true;
-            }
-            return false;
-        }
-
+        // Save avatar (profile picture) for a user. Returns filesystem path or null.
         public static async Task<string> SaveUserAvatarAsync(int userId, FileResult file)
         {
             if (file == null) return null;
@@ -411,6 +430,7 @@ namespace EventSpaceBookingSystem.Services
                 using var sourceStream = await file.OpenReadAsync();
                 using var destStream = File.Create(targetPath);
                 await sourceStream.CopyToAsync(destStream);
+
                 AddNotificationById(userId, "Profile Picture Changed", "You have successfully updated your profile picture.");
                 return targetPath;
             }
@@ -421,6 +441,50 @@ namespace EventSpaceBookingSystem.Services
             }
         }
 
+        // -------------------------
+        // Status updates across both user lists
+        // -------------------------
+        // This updates user status (searches both Users.txt and EventSpaceOwners.txt)
+        public static async Task<bool> UpdateUserStatusAsync(string emailOrUsername, string newStatus)
+        {
+            bool updated = false;
+
+            // First try Users.txt
+            if (File.Exists(UsersFilePath))
+            {
+                var users = await LoadUsersAsync(UsersFilePath);
+                var user = users.FirstOrDefault(u => u.Email.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase)
+                                                  || u.Username.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase));
+                if (user != null)
+                {
+                    user.Status = newStatus;
+                    var updatedJson = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+                    await File.WriteAllTextAsync(UsersFilePath, updatedJson);
+                    updated = true;
+                }
+            }
+
+            // Then try EventSpaceOwners.txt (in case it's an owner)
+            if (File.Exists(EventSpaceOwnersFilePath))
+            {
+                var owners = await LoadUsersAsync(EventSpaceOwnersFilePath);
+                var owner = owners.FirstOrDefault(u => u.Email.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase)
+                                                    || u.Username.Equals(emailOrUsername, StringComparison.OrdinalIgnoreCase));
+                if (owner != null)
+                {
+                    owner.Status = newStatus;
+                    var updatedJson = JsonSerializer.Serialize(owners, new JsonSerializerOptions { WriteIndented = true });
+                    await File.WriteAllTextAsync(EventSpaceOwnersFilePath, updatedJson);
+                    updated = true;
+                }
+            }
+
+            return updated;
+        }
+
+        // -------------------------
+        // Notifications & helpers
+        // -------------------------
         public static void AddNotificationById(int userId, string title, string message)
         {
             try

@@ -7,8 +7,8 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using EventSpaceBookingSystem.Model;
-using Microsoft.Maui.Storage; // ✅ for FileSystem.AppDataDirectory
-using Microsoft.Maui.Controls; // ✅ for Application.Current and ImageSource
+using Microsoft.Maui.Storage;
+using Microsoft.Maui.Controls;
 
 namespace EventSpaceBookingSystem.Services
 {
@@ -18,7 +18,7 @@ namespace EventSpaceBookingSystem.Services
 #if ANDROID
         private static readonly string JsonDirectory = FileSystem.AppDataDirectory;
 #else
-        private static readonly string JsonDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\Json"));
+        private static readonly string JsonDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\\..\\..\\..\\Json"));
 #endif
 
         private static string GetOwnerFilePath(int ownerId) =>
@@ -112,7 +112,6 @@ namespace EventSpaceBookingSystem.Services
             if (!Directory.Exists(baseFolder))
                 Directory.CreateDirectory(baseFolder);
 
-            // 🔢 Get the highest existing index
             var existingFiles = Directory.GetFiles(baseFolder, "img_*.png");
             int maxIndex = existingFiles
                 .Select(f => Path.GetFileNameWithoutExtension(f))
@@ -243,6 +242,38 @@ namespace EventSpaceBookingSystem.Services
         {
             var users = await UserFileService.LoadUsersAsync();
             return users.FirstOrDefault(u => u.Id == ownerId);
+        }
+
+        // ✅ NEW METHOD — Adds event space owner to admin list
+        public static async Task AddOwnerToAdminListAsync(Users newOwner)
+        {
+            try
+            {
+                string eventSpaceOwnersFile = Path.Combine(JsonDirectory, "EventSpaceOwners.txt");
+
+                List<Users> owners = new();
+
+                if (File.Exists(eventSpaceOwnersFile))
+                {
+                    string json = await File.ReadAllTextAsync(eventSpaceOwnersFile);
+                    if (!string.IsNullOrWhiteSpace(json))
+                        owners = JsonSerializer.Deserialize<List<Users>>(json) ?? new();
+                }
+
+                if (!owners.Any(u => u.Id == newOwner.Id))
+                {
+                    owners.Add(newOwner);
+
+                    string updatedJson = JsonSerializer.Serialize(owners, new JsonSerializerOptions { WriteIndented = true });
+                    await File.WriteAllTextAsync(eventSpaceOwnersFile, updatedJson);
+
+                    Console.WriteLine($"[DEBUG] Added new owner '{newOwner.Username}' to EventSpaceOwners.txt");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding owner to admin list: {ex.Message}");
+            }
         }
     }
 }
