@@ -6,82 +6,21 @@
              x:Name="OwnerJoinPage"
              BackgroundColor="LightGray">
 
+    <!-- Use a Grid so header and form are scrollable and nav bar stays fixed at bottom -->
+    <Grid RowDefinitions="Auto,*,Auto">
 
-    <ScrollView>
-        <VerticalStackLayout >
-            <!-- HEADER: Greeting + Notification + Settings -->
-            <Grid Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="white">
-                <Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
-                <HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
-                    <ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
-                    <ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
-                </HorizontalStackLayout>
-            </Grid>
+        <!-- HEADER: Greeting + Notification + Settings (top) -->
+        <Grid Row="0" Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="white">
+            <Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
+                <ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
+                <ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
+            </HorizontalStackLayout>
+        </Grid>
 
-
-
-
-            <!-- NAVIGATION BAR -->
-            <Grid Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White">
-
-                <!-- HOME -->
-                <Grid Grid.Column="0">
-                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnHomeClicked" />
-                        </StackLayout.GestureRecognizers>
-                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                            <Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
-                            <Label Text="HOME" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
-                        </HorizontalStackLayout>
-                    </StackLayout>
-                </Grid>
-
-                <!-- VENUES -->
-                <Grid Grid.Column="1">
-                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnExploreClicked" />
-                        </StackLayout.GestureRecognizers>
-                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                            <Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
-                            <Label Text="Venues" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
-                        </HorizontalStackLayout>
-                    </StackLayout>
-                </Grid>
-
-                <!-- CART -->
-                <Grid Grid.Column="2">
-                    <StackLayout Padding="0,10" BackgroundColor="Transparent">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnCartClicked" />
-                        </StackLayout.GestureRecognizers>
-                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                            <Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
-                            <Label Text="Cart" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
-                        </HorizontalStackLayout>
-                    </StackLayout>
-                </Grid>
-
-                <!-- OWNER -->
-                <Grid Grid.Column="3"
-      IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
-                    <StackLayout Padding="0,10" BackgroundColor="#D3D3D3">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
-                        </StackLayout.GestureRecognizers>
-                        <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                            <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
-                            <Label Text="Be an Event Space Owner!" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
-                        </HorizontalStackLayout>
-                    </StackLayout>
-                </Grid>
-
-
-
-            </Grid>
-
-            <ScrollView>
+        <!-- MAIN SCROLLABLE CONTENT -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
 
                 <Border Padding="20" BackgroundColor="white" Stroke="Transparent" StrokeShape="RoundRectangle 15" Margin="0,20,0,0">
 
@@ -217,10 +156,70 @@
                         </StackLayout>
                     </VerticalStackLayout>
                 </Border>
-            </ScrollView>
 
-            <!-- Optional: Add some footer or spacing below the form -->
-            <Label Text=" " HorizontalOptions="Center" TextColor="Gray" FontSize="12"/>
-        </VerticalStackLayout>
-    </ScrollView>
+                <!-- Optional: Add some footer or spacing below the form -->
+                <Label Text=" " HorizontalOptions="Center" TextColor="Gray" FontSize="12"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- NAVIGATION BAR (fixed at bottom) -->
+        <Grid Row="2" Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White">
+
+            <!-- HOME -->
+            <Grid Grid.Column="0">
+                <StackLayout Padding="0,20" BackgroundColor="Transparent">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHomeClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="HOME" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- VENUES -->
+            <Grid Grid.Column="1">
+                <StackLayout Padding="0,20" BackgroundColor="Transparent">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnExploreClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="Venues" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- CART -->
+            <Grid Grid.Column="2">
+                <StackLayout Padding="0,20" BackgroundColor="Transparent">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCartClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="Cart" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- OWNER -->
+            <Grid Grid.Column="3"
+                    IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
+                <StackLayout Padding="0,20" BackgroundColor="#D3D3D3">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="EventHub" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
 </ContentPage>
