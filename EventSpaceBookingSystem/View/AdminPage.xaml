@@ -51,7 +51,7 @@
 
                 <VerticalStackLayout Spacing="8">
                     <ScrollView Orientation="Horizontal">
-                        <CollectionView ItemsSource="{Binding SpaceOwners}"
+                        <CollectionView ItemsSource="{Binding Owners}"
                                         x:Name="OwnersListView"
                                         SelectionMode="None"
                                         HorizontalScrollBarVisibility="Never">
@@ -86,7 +86,7 @@
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                            
+
                         </CollectionView>
                     </ScrollView>
                 </VerticalStackLayout>
