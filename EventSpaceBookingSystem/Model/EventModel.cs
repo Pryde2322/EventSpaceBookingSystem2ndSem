@@ -9,7 +9,7 @@ namespace EventSpaceBookingSystem.Model
     public class EventModel : INotifyPropertyChanged
     {
         private string _title;
-        
+
         private int _rating;
         private int _reviewCount;
         private string _capacity;
@@ -21,9 +21,10 @@ namespace EventSpaceBookingSystem.Model
         private string _category;
         private string _description1;
         private string _description2;
+        private bool _isSelected;
 
         public string Title { get => _title; set { _title = value; OnPropertyChanged(); } }
-        
+
         public int Rating { get => _rating; set { _rating = value; OnPropertyChanged(); } }
         public int ReviewCount { get => _reviewCount; set { _reviewCount = value; OnPropertyChanged(); } }
         public string Capacity { get => _capacity; set { _capacity = value; OnPropertyChanged(); } }
@@ -36,6 +37,13 @@ namespace EventSpaceBookingSystem.Model
 
         public string Description1 { get => _description1; set { _description1 = value; OnPropertyChanged(); } }
         public string Description2 { get => _description2; set { _description2 = value; OnPropertyChanged(); } }
+
+        // Selection property used for checkbox selection in OwnerHomePage
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set { _isSelected = value; OnPropertyChanged(); }
+        }
 
         private ImageSource _uploadedImage;
         public ImageSource UploadedImage

@@ -5,86 +5,27 @@
              x:Class="EventSpaceBookingSystem.View.ExplorePage"
              BackgroundColor="#D3D3D3">
 
-    <ContentPage.Content>
-		<ScrollView>
-			
-		
-        <StackLayout Spacing="0">
-                <StackLayout  Spacing="0"  IsVisible="{Binding IsLoggedIn}"> 
-			<!-- HEADER: Greeting + Notification + Settings -->
-			<Grid Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="White">
-				<Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
-				<HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
-					<ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
-					<ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
-				</HorizontalStackLayout>
-			</Grid>
+    <!-- Use a Grid with two rows: scrollable content above, fixed nav bar below -->
+    <Grid RowDefinitions="*, Auto">
 
-			<!-- NAVIGATION BAR -->
-			<Grid Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White">
-
-				<!-- HOME -->
-				<Grid Grid.Column="0">
-					<StackLayout Padding="0,10" BackgroundColor="Transparent">
-						<StackLayout.GestureRecognizers>
-							<TapGestureRecognizer Tapped="OnHomeClicked" />
-						</StackLayout.GestureRecognizers>
-						<HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-							<Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
-							<Label Text="HOME" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
-						</HorizontalStackLayout>
-					</StackLayout>
-				</Grid>
-
-				<!-- VENUES -->
-				<Grid Grid.Column="1">
-					<StackLayout Padding="0,10" BackgroundColor="#D3D3D3">
-						<StackLayout.GestureRecognizers>
-							<TapGestureRecognizer Tapped="OnExploreClicked" />
-						</StackLayout.GestureRecognizers>
-						<HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-							<Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
-							<Label Text="Venues" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
-						</HorizontalStackLayout>
-					</StackLayout>
-				</Grid>
-
-				<!-- CART -->
-				<Grid Grid.Column="2">
-					<StackLayout Padding="0,10" BackgroundColor="Transparent">
-						<StackLayout.GestureRecognizers>
-							<TapGestureRecognizer Tapped="OnCartClicked" />
-						</StackLayout.GestureRecognizers>
-						<HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-							<Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
-							<Label Text="Cart" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
-						</HorizontalStackLayout>
-					</StackLayout>
-				</Grid>
-
-                    <!-- OWNER -->
-                    <Grid Grid.Column="3"
-      IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
-                        <StackLayout Padding="0,10" BackgroundColor="Transparent">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
-                            </StackLayout.GestureRecognizers>
-                            <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                                <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
-                                <Label Text="Be an Event Space Owner!" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
-                            </HorizontalStackLayout>
-                        </StackLayout>
+        <!-- Main scrollable content -->
+        <ScrollView Grid.Row="0">
+            <StackLayout Spacing="0">
+                <StackLayout  Spacing="0"  IsVisible="{Binding IsLoggedIn}">
+                    <!-- HEADER: Greeting + Notification + Settings -->
+                    <Grid Padding="15,10" ColumnDefinitions="*, Auto" BackgroundColor="White">
+                        <Label Grid.Column="0" Text="{Binding Username, StringFormat='Hello {0}!'}" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Center" HorizontalOptions="End" Padding="0,0,0,0">
+                            <ImageButton Padding="10" Source="notification_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnNotificationClicked"/>
+                            <ImageButton Padding="10" Source="settings_icon.png" WidthRequest="16" HeightRequest="16" Aspect="AspectFit" BackgroundColor="Transparent" Clicked="OnSettingsClicked"/>
+                        </HorizontalStackLayout>
                     </Grid>
-
-                </Grid>
-
                 </StackLayout>
 
                 <!-- Content Card -->
                 <Frame BackgroundColor="White" Margin="30,15,30,30" CornerRadius="0" HasShadow="False" Padding="20" WidthRequest="410">
-                
-                
-				<StackLayout Spacing="15">
+
+                    <StackLayout Spacing="15">
 
                         <!-- Header Information -->
                         <Grid>
@@ -170,92 +111,141 @@
 
 
                         <!-- Add this after your current "Book Now" button section -->
-                        <Frame x:Name="BookingOptionsFrame" IsVisible="{Binding IsBookingVisible}" BackgroundColor="#E5E5E5" Margin="0,10,0,15" CornerRadius="15" HasShadow="False" Padding="20">
-                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="20" ColumnSpacing="10">
-
+                        <Frame x:Name="BookingOptionsFrame" IsVisible="{Binding IsBookingVisible}" BackgroundColor="#E5E5E5" Margin="0,10,0,15" CornerRadius="15" HasShadow="False" Padding="12">
+                            <StackLayout Spacing="12">
                                 <!-- Booking Date -->
-                                <Frame Grid.Row="0" Grid.Column="0" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
-                                    <HorizontalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
-                                        <Label Text="Booking Date:" FontSize="14" TextColor="Black" VerticalOptions="Center"/>
-                                        <DatePicker MinimumDate="{Binding MinBookingDate}" Date="{Binding BookingDate}" MinimumWidthRequest="250"/>
+                                <Frame Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False" HorizontalOptions="FillAndExpand">
+                                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                        <Label Text="Booking Date" FontSize="14" TextColor="Black" VerticalOptions="Center" />
+                                        <DatePicker MinimumDate="{Binding MinBookingDate}" Date="{Binding BookingDate}" HorizontalOptions="FillAndExpand" />
                                     </HorizontalStackLayout>
                                 </Frame>
 
                                 <!-- Number of Guests -->
-                                <Frame Grid.Row="0" Grid.Column="1" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
-                                    <HorizontalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
-                                        <Label Text="Number of Guest:" FontSize="14" TextColor="Black" VerticalOptions="Center"/>
-                                        <Picker ItemsSource="{Binding GuestOptions}" SelectedItem="{Binding SelectedGuestCount}" MinimumWidthRequest="250" />
+                                <Frame Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False" HorizontalOptions="FillAndExpand">
+                                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                        <Label Text="Number of Guests" FontSize="14" TextColor="Black" VerticalOptions="Center" />
+                                        <Picker ItemsSource="{Binding GuestOptions}" SelectedItem="{Binding SelectedGuestCount}" HorizontalOptions="FillAndExpand" />
                                     </HorizontalStackLayout>
                                 </Frame>
 
                                 <!-- Time of Event -->
-                                <Frame Grid.Row="0" Grid.Column="2" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
-                                    <HorizontalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
-                                        <Label Text="Time of Event:" FontSize="14" TextColor="Black" VerticalOptions="Center"/>
-                                        <Picker ItemsSource="{Binding TimeOptions}" SelectedItem="{Binding SelectedTimeSlot}" MinimumWidthRequest="250" />
+                                <Frame Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False" HorizontalOptions="FillAndExpand">
+                                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                        <Label Text="Time of Event" FontSize="14" TextColor="Black" VerticalOptions="Center" />
+                                        <Picker ItemsSource="{Binding TimeOptions}" SelectedItem="{Binding SelectedTimeSlot}" HorizontalOptions="FillAndExpand" />
                                     </HorizontalStackLayout>
                                 </Frame>
 
-                                <!-- Extra Chairs -->
-                                <Frame Grid.Row="1" Grid.Column="0" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
-                                    <StackLayout Orientation="Horizontal" Spacing="10">
-                                        <CheckBox IsChecked="{Binding IsExtraChairsChecked}" />
-                                        <Label Text="Extra Chairs" VerticalOptions="Center" TextColor="#888888" />
-                                        <Picker ItemsSource="{Binding ExtraChairsOptions}" SelectedItem="{Binding SelectedExtraChairs}" IsEnabled="{Binding IsExtraChairsChecked}" MinimumWidthRequest="250"/>
-                                    </StackLayout>
-                                </Frame>
-
-                                <!-- Time Extension -->
-                                <Frame Grid.Row="1" Grid.Column="1" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
-                                    <StackLayout Orientation="Horizontal" Spacing="10">
-                                        <CheckBox IsChecked="{Binding IsTimeExtensionChecked}" />
-                                        <Label Text="Time Extension" VerticalOptions="Center" TextColor="#888888" />
-                                        <Picker ItemsSource="{Binding TimeExtensionOptions}" SelectedItem="{Binding SelectedTimeExtension}" IsEnabled="{Binding IsTimeExtensionChecked}" MinimumWidthRequest="250"/>
+                                <!-- Extras (stacked vertically for readability) -->
+                                <Frame Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="10">
+                                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                            <CheckBox IsChecked="{Binding IsExtraChairsChecked}" />
+                                            <Label Text="Extra Chairs" VerticalOptions="Center" TextColor="#888888" />
+                                            <Picker ItemsSource="{Binding ExtraChairsOptions}" SelectedItem="{Binding SelectedExtraChairs}" IsEnabled="{Binding IsExtraChairsChecked}" HorizontalOptions="FillAndExpand" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                            <CheckBox IsChecked="{Binding IsTimeExtensionChecked}" />
+                                            <Label Text="Time Extension" VerticalOptions="Center" TextColor="#888888" />
+                                            <Picker ItemsSource="{Binding TimeExtensionOptions}" SelectedItem="{Binding SelectedTimeExtension}" IsEnabled="{Binding IsTimeExtensionChecked}" HorizontalOptions="FillAndExpand" />
+                                        </HorizontalStackLayout>
                                     </StackLayout>
                                 </Frame>
 
                                 <!-- Confirm Button -->
-                                <Button Grid.Row="1" Grid.Column="2" Text="Confirm" BackgroundColor="Black" TextColor="White" CornerRadius="20" Command="{Binding ConfirmBookingCommand}" />
-                            </Grid>
+                                <Button Text="Confirm" BackgroundColor="Black" TextColor="White" CornerRadius="20" Command="{Binding ConfirmBookingCommand}" HorizontalOptions="End" WidthRequest="120" />
+                            </StackLayout>
                         </Frame>
 
-
-
-
-
-
                         <!-- Related Images Title -->
-					<Label Text="Images" FontSize="20" FontAttributes="Bold" Margin="15,0,0,10"/>
+                        <Label Text="Images" FontSize="20" FontAttributes="Bold" Margin="15,0,0,10"/>
 
-					<!-- Related Images Section -->
-					<CollectionView ItemsSource="{Binding RelatedImages}"
-									HeightRequest="120"
-									Margin="0,0,0,0"
-									HorizontalScrollBarVisibility="Never"
-									VerticalScrollBarVisibility="Never">
-						<CollectionView.ItemsLayout>
-							<LinearItemsLayout Orientation="Horizontal" ItemSpacing="0"/>
-						</CollectionView.ItemsLayout>
-						<CollectionView.ItemTemplate>
-							<DataTemplate>
-								<Frame Padding="0"
-									   WidthRequest="300"
-									   HeightRequest="300"
-									   CornerRadius="0"
-									   HasShadow="False"
-									   BorderColor="Transparent"
-									   Margin="0"
-									   BackgroundColor="#E5E5E5">
-									<Image Source="{Binding}" Aspect="AspectFill" />
-								</Frame>
-							</DataTemplate>
-						</CollectionView.ItemTemplate>
-					</CollectionView>
+                        <!-- Related Images Section -->
+                        <CollectionView ItemsSource="{Binding RelatedImages}"
+                                        HeightRequest="120"
+                                        Margin="0,0,0,0"
+                                        HorizontalScrollBarVisibility="Never"
+                                        VerticalScrollBarVisibility="Never">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="0"
+                                           WidthRequest="300"
+                                           HeightRequest="300"
+                                           CornerRadius="0"
+                                           HasShadow="False"
+                                           BorderColor="Transparent"
+                                           Margin="0"
+                                           BackgroundColor="#E5E5E5">
+                                        <Image Source="{Binding}" Aspect="AspectFill" />
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
-				</StackLayout>
-			</Frame>
-        </StackLayout>
-		</ScrollView>
-    </ContentPage.Content>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- NAVIGATION BAR (fixed at bottom) -->
+        <Grid Grid.Row="1" Padding="0" ColumnDefinitions="*,*,*,*" BackgroundColor="White" IsVisible="{Binding IsLoggedIn}">
+            <!-- HOME -->
+            <Grid Grid.Column="0">
+                <StackLayout Padding="0,20" BackgroundColor="#D3D3D3">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHomeClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="home_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="HOME" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- VENUES -->
+            <Grid Grid.Column="1">
+                <StackLayout Padding="0,20" BackgroundColor="Transparent">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnExploreClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="explore_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="Venues" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- CART -->
+            <Grid Grid.Column="2">
+                <StackLayout Padding="0,20" BackgroundColor="Transparent">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCartClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="cart_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="Cart" FontSize="14" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- OWNER -->
+            <Grid Grid.Column="3"
+                  IsVisible="{Binding UserStatus, Converter={StaticResource StatusToVisibilityConverter}}">
+                <StackLayout Padding="0,20" BackgroundColor="Transparent">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBecomeOwnerClicked" />
+                    </StackLayout.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Image Source="owner_icon.png" WidthRequest="22" HeightRequest="22"/>
+                        <Label Text="EventHub" FontSize="14" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Grid>
+        </Grid>
+
+    </Grid>
 </ContentPage>

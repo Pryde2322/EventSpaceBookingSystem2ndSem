@@ -4,93 +4,98 @@
              x:Class="EventSpaceBookingSystem.View.OwnerHomePage"
              xmlns:controls="clr-namespace:EventSpaceBookingSystem.Controls"
              xmlns:model="clr-namespace:EventSpaceBookingSystem.Model"
-             BackgroundColor="#E7E7E7">
+             BackgroundColor="#F2F2F2"
+             Title="My Spaces">
 
-    <Grid ColumnDefinitions="50,*">
-        <controls:OwnerPageSidebarView Grid.Column="0" SelectedPage="Home"/>
-        <StackLayout Orientation="Vertical" Grid.Column="1">
-            <Grid ColumnDefinitions="*,*">
-                <HorizontalStackLayout Grid.Column="0" 
-                               Padding="15,10,0,0">
-                    <Label Text="RAMENCO"
-                   FontAttributes="Bold"
-                   FontSize="Medium"
-                   TextColor="Black"/>
-                    <Label Text="  Space Booking"
-                   FontSize="Medium"
-                   TextColor="Black"/>
+    <!-- Mobile-friendly single-column layout -->
+    <ScrollView>
+        <VerticalStackLayout Padding="12" Spacing="10">
+
+            <!-- Top bar -->
+            <Grid ColumnDefinitions="*,Auto" Padding="0,6">
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                    <Label Text="RAMENCO" FontAttributes="Bold" FontSize="20" TextColor="#000" />
+                    <Label Text="Space Booking" FontSize="17" TextColor="#000" Margin="0,2,0,0"/>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Grid.Column="1"  
-                               Padding="0,5,25,0"
-                               HorizontalOptions="End">
-                    <ImageButton Source="bell.png" 
-                                 Clicked="OnNotificationIconClicked"
-                                 BackgroundColor="Transparent"/>
-                    <ImageButton Source="user24px.png"
-                                 Clicked="OnProfileIconClicked"
-                                 BackgroundColor="Transparent"/>
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
+                    <ImageButton Source="bell.png" Clicked="OnNotificationIconClicked" BackgroundColor="Transparent" HeightRequest="28" WidthRequest="28"/>
+                    <ImageButton Source="user24px.png" Clicked="OnProfileIconClicked" BackgroundColor="Transparent" HeightRequest="28" WidthRequest="28"/>
                 </HorizontalStackLayout>
             </Grid>
-            <Line X2="1920" Stroke="Black"/>
-            <Grid ColumnDefinitions="*,*" >
-                <Label Text="All Event Spaces Owned"
-                       TextColor="Black"
-                       FontSize="Medium"
-                       Grid.Column="0"
-                       Padding="40"/>
-                <HorizontalStackLayout Grid.Column="1" Padding="0, 5,140,0" HorizontalOptions="End" Spacing="15">
-                    <Border HeightRequest="35" WidthRequest="140" 
-                            BackgroundColor="#4DB5FF"
-                            Stroke="#4DB5FF">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16" />
-                        </Border.StrokeShape>
-                        <Label Text="Update Event Space"
-                               FontSize="11"
-                               HorizontalTextAlignment="Center" 
-                               VerticalTextAlignment="Center"/>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnUpdateBtnClicked"/>
-                        </Border.GestureRecognizers>
-                    </Border>
-                    <Border HeightRequest="35" WidthRequest="140" 
-                            BackgroundColor="#4DB5FF"
-                            Stroke="#4DB5FF">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16" />
-                        </Border.StrokeShape>
-                        <Label Text="Add Event Space"
-                               FontSize="11"
-                               HorizontalTextAlignment="Center" 
-                               VerticalTextAlignment="Center"/>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAddEventBtnClicked"/>
-                        </Border.GestureRecognizers>
-                    </Border>
-                </HorizontalStackLayout>
-            </Grid>
-            <CollectionView ItemsSource="{Binding EventSpaces}" EmptyView="No Owned Space Added" SelectionMode="Single" SelectionChanged="OnEventSpaceSelected">
+
+            <!-- Action buttons row -->
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="FillAndExpand" Margin="0,30,0,0" VerticalOptions="Start">
+                <Button Text="Add Event Space" CornerRadius="8" BackgroundColor="#4DB5FF" TextColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HeightRequest="40" Clicked="OnAddEventBtnClicked" />
+                <Button Text="Update Event Space" CornerRadius="8" BackgroundColor="#B0E6FF" TextColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center" HeightRequest="40" Clicked="OnUpdateBtnClicked" />
+            </HorizontalStackLayout>
+
+            <!-- Section title -->
+            <Label Text="All Event Spaces Owned" FontSize="16" FontAttributes="Bold" TextColor="#000" Padding="2,6" Margin="0,20,0,0"/>
+
+            <!-- Owned spaces list: card layout sized for phone -->
+            <CollectionView x:Name="SpacesCollection" ItemsSource="{Binding EventSpaces}" SelectionMode="None" ItemsLayout="VerticalList">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="14">
+                        <Label Text="No Owned Space Added" TextColor="#9E9E9E" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+
+
+
+
+
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout Padding="20,5,0,0" VerticalOptions="Center" HorizontalOptions="Center">
-                            <Border HeightRequest="150" WidthRequest="1300" Padding="15" StrokeShape="RoundRectangle 20" BackgroundColor="#f2f2f2">
-                                <VerticalStackLayout Spacing="4">
-                                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-                                    <Label Text="{Binding Location, StringFormat='Address: {0}'}" FontSize="13" TextColor="Black"/>
-                                    <Label Text="{Binding Description1, Converter={StaticResource TruncateConverter}, StringFormat='Description: {0}'}" FontSize="13" TextColor="Black"/>
-                                    <Label Text="{Binding Capacity, StringFormat='Capacity: {0}'}" FontSize="13" TextColor="Black"/>
-                                    <HorizontalStackLayout Spacing="25" Padding="0,5,0,0">
-                                        <Label Text="{Binding DailyRate, StringFormat='Daily Rate: {0}'}" FontSize="12" TextColor="Black"/>
-                                        <Label Text="{Binding ExtensionRate, StringFormat='Extension: {0}'}" FontSize="12" TextColor="Black"/>
-                                        <Label Text="{Binding TableRate, StringFormat='Table: {0}'}" FontSize="12" TextColor="Black"/>
-                                    </HorizontalStackLayout>
+                    <DataTemplate x:DataType="model:EventModel">
+                        <Frame Margin="0,6" Padding="12" CornerRadius="12" BackgroundColor="White" HasShadow="True" BorderColor="#EDEDED">
+                            <!-- Layout: image, content, right-side controls (checkbox + capacity) -->
+                            <!-- Reserve fixed width for right-side column to avoid content push -->
+                            <!-- change third column to Auto so it sizes to capacity content and doesn't force wrapping -->
+                            <Grid ColumnDefinitions="80,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+
+                                <!-- image placeholder in column 0 -->
+                                <Border Grid.Column="0" BackgroundColor="#F0F0F0" HeightRequest="64" WidthRequest="64" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,30,0,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+                                    <!-- Image can be bound here if available -->
+                                </Border>
+
+                                <!-- Title + location + description in column 1 -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                    <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Location, StringFormat='Address: {0}'}" FontSize="13" TextColor="#666" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Description1, Converter={StaticResource TruncateConverter}}" FontSize="13" TextColor="#444" LineBreakMode="TailTruncation" MaxLines="2" />
                                 </VerticalStackLayout>
-                            </Border>
-                        </HorizontalStackLayout>
+
+                                <!-- CheckBox placed in top-right (row 0, column 2) -->
+                                <CheckBox Grid.Column="2" Grid.Row="0" IsChecked="{Binding IsSelected, Mode=TwoWay}" CheckedChanged="OnItemCheckedChanged" HorizontalOptions="End" VerticalOptions="Center" Margin="0,45,0,0" />
+
+                                <!-- Capacity placed in bottom-right (row 1, column 2) so it aligns with the rates row -->
+                                <HorizontalStackLayout Grid.Column="1" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Start" Spacing="4" Margin="0,30,0,0">
+                                    <Label Text="{Binding TableRate, StringFormat='Table: {0}'}" FontSize="12" TextColor="#757575" WidthRequest="110"/>
+                                    <Label Text="Capacity:" FontSize="11" TextColor="#757575" VerticalOptions="Center" />
+                                    <Label Text="{Binding Capacity}" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+
+                                <!-- Rates row below placed in column 1 row 1. Use a FlexLayout with no wrap so these items don't wrap onto the next line -->
+                                <HorizontalStackLayout Grid.Column="1" Grid.Row="1" Spacing="4" VerticalOptions="Center" HorizontalOptions="Start">
+                                    <Label Text="{Binding DailyRate, StringFormat='Daily: {0}'}" FontSize="12" TextColor="#757575" WidthRequest="110"/>
+                                    <Label Text="{Binding ExtensionRate, StringFormat='Extension: {0}'}" FontSize="12" TextColor="#757575"/>
+                                </HorizontalStackLayout>
+
+
+
+                            </Grid>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
 
-        </StackLayout>
-    </Grid>
+
+
+
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

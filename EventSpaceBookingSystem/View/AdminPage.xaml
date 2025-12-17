@@ -43,53 +43,55 @@
                 <Button Text="Deactivated" FontAttributes="Bold" Clicked="OnDeactivatedOwnersClicked"/>
             </HorizontalStackLayout>
 
-            <!-- Owner List -->
+            <!-- Owner List — vertical card style (replace the previous Owner List Frame) -->
             <Frame HasShadow="False"
-                   BackgroundColor="White"
-                   CornerRadius="12"
-                   Padding="10">
+       BackgroundColor="White"
+       CornerRadius="12"
+       Padding="10">
 
-                <VerticalStackLayout Spacing="8">
-                    <ScrollView Orientation="Horizontal">
-                        <CollectionView ItemsSource="{Binding Owners}"
-                                        x:Name="OwnersListView"
-                                        SelectionMode="None"
-                                        HorizontalScrollBarVisibility="Never">
+                <CollectionView ItemsSource="{Binding Owners}"
+                    x:Name="OwnersListView"
+                    SelectionMode="None"
+                    ItemsLayout="VerticalList">
+                    <CollectionView.Header>
+                        <Label Text="Owners" FontSize="18" FontAttributes="Bold" Padding="6"/>
+                    </CollectionView.Header>
 
-                            <!-- Table Header -->
-                            <CollectionView.Header>
-                                <Grid ColumnDefinitions="*,*,*,*,*" Padding="10" BackgroundColor="#F5F5F5" WidthRequest="1200">
-                                    <Label Text="Owner" FontAttributes="Bold" Grid.Column="0" />
-                                    <Label Text="Spaces" FontAttributes="Bold" Grid.Column="1" />
-                                    <Label Text="Status" FontAttributes="Bold" Grid.Column="2" />
-                                    <Label Text="Last Active" FontAttributes="Bold" Grid.Column="3" />
-                                    <Label Text="Toggle" FontAttributes="Bold" Grid.Column="4" />
+                    <CollectionView.EmptyView>
+                        <Label Text="No owners found." Padding="8" TextColor="#9E9E9E" />
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="6" CornerRadius="8" Padding="10" BackgroundColor="#FAFAFA" HasShadow="True">
+                                <!-- Use Grid so the Switch stays fixed at the right (Auto column) while text uses the remaining space -->
+                                <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                                    <!-- Left column: name, spaces, status and last active -->
+                                    <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                        <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+
+                                        <HorizontalStackLayout Spacing="8">
+                                            <Label Text="{Binding Spaces, StringFormat='{}{0} spaces'}" FontSize="14" TextColor="#666" />
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout Spacing="8">
+                                            <Label Text="Status:" FontSize="12" TextColor="#757575" VerticalOptions="Center" />
+                                            <Label Text="{Binding IsActive, Converter={StaticResource StatusConverter}}"
+                                       FontSize="12"
+                                       TextColor="{Binding IsActive, Converter={StaticResource StatusColorConverter}}"
+                                       VerticalOptions="Center" />
+                                            <Label Text="Last Active:" FontSize="12" TextColor="#757575" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
+                                            <Label Text="{Binding LastActive}" FontSize="12" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+
+                                    <!-- Right column: fixed Switch -->
+                                    <Switch Grid.Column="1" IsToggled="{Binding IsActive, Mode=TwoWay}" VerticalOptions="Center" HorizontalOptions="End" />
                                 </Grid>
-                            </CollectionView.Header>
-
-                            <CollectionView.EmptyView>
-                                <Label Text="No owners found." Padding="8" TextColor="#9E9E9E" />
-                            </CollectionView.EmptyView>
-
-                            <!-- Table Rows -->
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid ColumnDefinitions="*,*,*,*,*" Padding="10" BackgroundColor="White" WidthRequest="1200">
-                                        <Label Text="{Binding Name}" FontSize="14" Grid.Column="0" VerticalOptions="Center" />
-                                        <Label Text="{Binding Spaces, StringFormat='{}{0} spaces'}" FontSize="14" Grid.Column="1" VerticalOptions="Center" />
-                                        <Label Text="{Binding IsActive, Converter={StaticResource StatusConverter}}"
-                                               FontSize="14"
-                                               TextColor="{Binding IsActive, Converter={StaticResource StatusColorConverter}}" 
-                                               Grid.Column="2" VerticalOptions="Center" />
-                                        <Label Text="{Binding LastActive}" FontSize="14" Grid.Column="3" VerticalOptions="Center" />
-                                        <Switch IsToggled="{Binding IsActive, Mode=TwoWay}" Grid.Column="4" VerticalOptions="Center" />
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-
-                        </CollectionView>
-                    </ScrollView>
-                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Frame>
 
             <!-- Transaction Reports -->
@@ -106,80 +108,100 @@
                            FontAttributes="Bold"
                            TextColor="#000000" />
 
-                    <!-- Filters (Scrollable on small screens) -->
-                    <ScrollView Orientation="Horizontal" Margin="0,10,0,20">
-                        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12" RowSpacing="12" WidthRequest="1100">
+                    <!-- Filters (responsive, wraps on small screens) -->
+                    <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start" AlignItems="Start" Margin="0,10,0,20" >
 
-                            <!-- Date Range -->
-                            <VerticalStackLayout Spacing="4">
-                                <Label Text="Date Range" FontAttributes="Bold" FontSize="13" TextColor="#000000" />
-                                <Label Text="Filter transactions by date" FontSize="12" TextColor="#757575" />
-                                <Button Text="Select Dates" BackgroundColor="#000000" TextColor="White" CornerRadius="8"
+                        <!-- Date Range -->
+                        <VerticalStackLayout Spacing="4" WidthRequest="260" Margin="0,0,12,12">
+                            <Label Text="Date Range" FontAttributes="Bold" FontSize="13" TextColor="#000000" />
+                            <Label Text="Filter transactions by date" FontSize="12" TextColor="#757575" />
+                            <Button Text="Select Dates" BackgroundColor="#000000" TextColor="White" CornerRadius="8"
                                         HeightRequest="40" Command="{Binding SelectDateRangeCommand}" />
-                            </VerticalStackLayout>
-
-                            <!-- Location -->
-                            <VerticalStackLayout Spacing="4" Grid.Column="1">
-                                <Label Text="Location" FontAttributes="Bold" FontSize="13" TextColor="#000000" />
-                                <Label Text="Filter transactions by venue location" FontSize="12" TextColor="#757575" />
-                                <Button Text="Select Space" BackgroundColor="#000000" TextColor="White" CornerRadius="8"
-                                        HeightRequest="40" Command="{Binding SelectLocationCommand}" />
-                            </VerticalStackLayout>
-
-                            <!-- Owner -->
-                            <VerticalStackLayout Spacing="4" Grid.Column="2">
-                                <Label Text="Owner" FontAttributes="Bold" FontSize="13" TextColor="#000000" />
-                                <Label Text="Filter transactions by space owner" FontSize="12" TextColor="#757575" />
-                                <Button Text="Select Owner" BackgroundColor="#000000" TextColor="White" CornerRadius="8"
-                                        HeightRequest="40" Command="{Binding SelectOwnerCommand}" />
-                            </VerticalStackLayout>
-
-                            <!-- Clear Filters -->
-                            <VerticalStackLayout Spacing="4" Grid.Column="3">
-                                <Label Text="" FontSize="13" />
-                                <Label Text="" FontSize="12" />
-                                <Button Text="Clear Filters" BackgroundColor="#9E9E9E" TextColor="White" CornerRadius="8"
-                                        HeightRequest="40" Command="{Binding ClearFiltersCommand}" />
-                            </VerticalStackLayout>
-                        </Grid>
-                    </ScrollView>
-
-                    <!-- Transactions Table -->
-                    <ScrollView Orientation="Horizontal">
-                        <VerticalStackLayout>
-                            <Grid Padding="6" ColumnDefinitions="50,*,*,*,Auto" BackgroundColor="Transparent" WidthRequest="900">
-                                <Label Text="ID" FontAttributes="Bold" FontSize="12"/>
-                                <Label Text="Date" FontAttributes="Bold" FontSize="12" Grid.Column="1"/>
-                                <Label Text="Owner" FontAttributes="Bold" FontSize="12" Grid.Column="2"/>
-                                <Label Text="Space" FontAttributes="Bold" FontSize="12" Grid.Column="3"/>
-                                <Label Text="Amount" FontAttributes="Bold" FontSize="12" Grid.Column="4" HorizontalTextAlignment="End"/>
-                            </Grid>
-
-                            <CollectionView ItemsSource="{Binding Transactions}" HeightRequest="210" SelectionMode="None" >
-                                <CollectionView.EmptyView>
-                                    <VerticalStackLayout Padding="6">
-                                        <Label Text="No transactions yet." TextColor="#9E9E9E" />
-                                    </VerticalStackLayout>
-                                </CollectionView.EmptyView>
-
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Padding="6" ColumnDefinitions="50,*,*,*,Auto" WidthRequest="900">
-                                            <Label Text="{Binding ID}" FontSize="13"/>
-                                            <Label Text="{Binding Date}" Grid.Column="1" FontSize="13"/>
-                                            <Label Text="{Binding Owner}" Grid.Column="2" FontSize="13"/>
-                                            <Label Text="{Binding Space}" Grid.Column="3" FontSize="13"/>
-                                            <Label Text="{Binding Amount}" Grid.Column="4" FontSize="13" HorizontalTextAlignment="End"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
                         </VerticalStackLayout>
-                    </ScrollView>
 
+                        <!-- Location -->
+                        <VerticalStackLayout Spacing="4" WidthRequest="260" Margin="0,0,12,12">
+                            <Label Text="Location" FontAttributes="Bold" FontSize="13" TextColor="#000000" />
+                            <Label Text="Filter transactions by venue location" FontSize="12" TextColor="#757575" />
+                            <Button Text="Select Space" BackgroundColor="#000000" TextColor="White" CornerRadius="8"
+                                        HeightRequest="40" Command="{Binding SelectLocationCommand}" />
+                        </VerticalStackLayout>
+
+                        <!-- Owner -->
+                        <VerticalStackLayout Spacing="4" WidthRequest="260" Margin="0,0,12,12">
+                            <Label Text="Owner" FontAttributes="Bold" FontSize="13" TextColor="#000000" />
+                            <Label Text="Filter transactions by space owner" FontSize="12" TextColor="#757575" />
+                            <Button Text="Select Owner" BackgroundColor="#000000" TextColor="White" CornerRadius="8"
+                                        HeightRequest="40" Command="{Binding SelectOwnerCommand}" />
+                        </VerticalStackLayout>
+
+                        <!-- Clear Filters -->
+                        <VerticalStackLayout Spacing="4" WidthRequest="260" Margin="0,0,12,12">
+                            <Label Text="" FontSize="13" />
+                            <Label Text="" FontSize="12" />
+                            <Button Text="Clear Filters" BackgroundColor="#9E9E9E" TextColor="White" CornerRadius="8"
+                                        HeightRequest="40" Command="{Binding ClearFiltersCommand}" />
+                        </VerticalStackLayout>
+
+                    </FlexLayout>
+
+                    <!-- Transactions Table (mobile-friendly card layout) -->
+                    <VerticalStackLayout>
+                        <!-- Optional small header row for readability -->
+                        <Grid Padding="6" ColumnDefinitions="Auto,*" BackgroundColor="Transparent">
+                            <Label Text="Transactions" FontAttributes="Bold" FontSize="14" />
+                        </Grid>
+
+                        <CollectionView ItemsSource="{Binding Transactions}" SelectionMode="None" ItemsLayout="VerticalList">
+                            <CollectionView.EmptyView>
+                                <VerticalStackLayout Padding="6">
+                                    <Label Text="No transactions yet." TextColor="#9E9E9E" />
+                                </VerticalStackLayout>
+                            </CollectionView.EmptyView>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Margin="6,6,6,0" Padding="14" CornerRadius="10" BackgroundColor="#FFFFFF" HasShadow="True" BorderColor="#EEEEEE">
+                                        <VerticalStackLayout Spacing="10">
+
+                                            <!-- Top row: labeled ID + Date (left), Amount (right) -->
+                                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                                    <HorizontalStackLayout Spacing="6">
+                                                        <Label Text="ID:" FontSize="11" TextColor="#757575" VerticalOptions="Center" />
+                                                        <Label Text="{Binding ID}" FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation" VerticalOptions="Center" />
+                                                    </HorizontalStackLayout>
+
+                                                    <Label Text="{Binding Date}" FontSize="12" TextColor="#757575" />
+                                                </VerticalStackLayout>
+
+                                                <Label Grid.Column="1" Text="{Binding Amount}" FontSize="14" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" />
+                                            </Grid>
+
+                                            <BoxView HeightRequest="1" Color="#F0F0F0" />
+
+                                            <!-- Bottom row: Owner and Space in two columns -->
+                                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Padding="0,6,0,0">
+                                                <!-- Use stacked layout for Owner and Space so long text wraps without overlapping -->
+                                                <VerticalStackLayout Spacing="6" Padding="0,6,0,0">
+                                                    <Label Text="Owner" FontSize="11" TextColor="#757575" />
+                                                    <Label Text="{Binding Owner}" FontSize="13" LineBreakMode="TailTruncation" MaxLines="2" />
+
+                                                    <BoxView HeightRequest="6" Color="Transparent" />
+
+                                                    <Label Text="Space" FontSize="11" TextColor="#757575" />
+                                                    <Label Text="{Binding Space}" FontSize="13" LineBreakMode="TailTruncation" MaxLines="2" />
+                                                </VerticalStackLayout>
+                                            </Grid>
+
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </Frame>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

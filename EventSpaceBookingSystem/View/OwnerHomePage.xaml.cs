@@ -1,4 +1,5 @@
-﻿using EventSpaceBookingSystem.Model;
+﻿using System;
+using EventSpaceBookingSystem.Model;
 using Mopups.Services;
 using EventSpaceBookingSystem.ViewModel;
 using EventSpaceBookingSystem.Services;
@@ -37,7 +38,8 @@ namespace EventSpaceBookingSystem.View
             NavigationPage.SetHasBackButton(this, false);
         }
 
-        public async void OnUpdateBtnClicked(object sender, TappedEventArgs e)
+        // Changed second parameter to EventArgs to match Button.Clicked signature
+        public async void OnUpdateBtnClicked(object sender, EventArgs e)
         {
             if (_selectedSpace != null)
             {
@@ -49,14 +51,39 @@ namespace EventSpaceBookingSystem.View
             }
         }
 
-        public void OnAddEventBtnClicked(object sender, TappedEventArgs e)
+        // Changed second parameter to EventArgs and made async to await the PushAsync call
+        public async void OnAddEventBtnClicked(object sender, EventArgs e)
         {
-            MopupService.Instance.PushAsync(new AddEventSpaceBox(ownerViewModel, _ownerId));
+            await MopupService.Instance.PushAsync(new AddEventSpaceBox(ownerViewModel, _ownerId));
         }
 
         private void OnEventSpaceSelected(object sender, SelectionChangedEventArgs e)
         {
             _selectedSpace = e.CurrentSelection.FirstOrDefault() as EventModel;
+        }
+
+        // Handle checkbox changed to enforce single selection
+        private void OnItemCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (sender is CheckBox checkbox && checkbox.BindingContext is EventModel changed)
+            {
+                if (e.Value)
+                {
+                    // Uncheck others
+                    foreach (var item in ownerViewModel.EventSpaces)
+                    {
+                        if (!ReferenceEquals(item, changed) && item.IsSelected)
+                            item.IsSelected = false;
+                    }
+                    _selectedSpace = changed;
+                }
+                else
+                {
+                    // If unchecked the selected item, clear selection
+                    if (ReferenceEquals(_selectedSpace, changed))
+                        _selectedSpace = null;
+                }
+            }
         }
 
         public void OnNotificationIconClicked(object sender, EventArgs e)
